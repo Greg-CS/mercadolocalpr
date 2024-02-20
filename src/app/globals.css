@@ -16,7 +16,6 @@
   }
 }
 
-
 .cat-img:hover {
   position: relative;
   animation: cat-fade-in 4s ease;
@@ -39,7 +38,7 @@
   --font-color: #323232;
   --font-color-sub: #666;
   --bg-color: #fff;
-  --main-color: #323232;
+  --main-color: #2d8cf0;
   padding: 20px;
   background: var(--background);
   display: flex;
@@ -52,7 +51,7 @@
   box-shadow: 4px 4px var(--main-color);
 }
 
-.form>p {
+.form > p {
   font-family: var(--font-DelaGothicOne);
   color: var(--font-color);
   font-weight: 700;
@@ -62,7 +61,7 @@
   flex-direction: column;
 }
 
-.form>p>span {
+.form > p > span {
   font-family: var(--font-SpaceMono);
   color: var(--font-color-sub);
   font-weight: 600;
@@ -77,14 +76,14 @@
   gap: 5px;
 }
 
-.separator>div {
+.separator > div {
   width: 100px;
   height: 3px;
   border-radius: 5px;
   background-color: var(--font-color-sub);
 }
 
-.separator>span {
+.separator > span {
   color: var(--font-color);
   font-family: var(--font-SpaceMono);
   font-weight: 600;
@@ -135,7 +134,7 @@
   width: 100%;
 }
 
-.form>input {
+.form > input {
   width: 250px;
   height: 40px;
   border-radius: 5px;
@@ -161,7 +160,7 @@
   border-radius: 100%;
   width: 100%;
 
-  >div {
+  > div {
     position: unset !important;
   }
 
@@ -198,9 +197,21 @@
   background-image: none;
   color: #fff;
   cursor: pointer;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Helvetica Neue,
+    Arial,
+    Noto Sans,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
   font-size: 100%;
   font-weight: 900;
   line-height: 1.5;
@@ -253,7 +264,9 @@
   animation-play-state: paused;
   opacity: 0;
   position: relative;
-  text-shadow: #fff var(--spacing) 0, #fff calc(var(--spacing) * -1) 0,
+  text-shadow:
+    #fff var(--spacing) 0,
+    #fff calc(var(--spacing) * -1) 0,
     #fff calc(var(--spacing) * -2) 0;
 }
 
@@ -295,7 +308,7 @@
   overflow: hidden;
   line-height: 0;
   transform: rotate(180deg);
-  background-color: #E4F0D0;
+  background-color: #e4f0d0;
 }
 
 .top-of-promotions svg {
@@ -306,7 +319,7 @@
 }
 
 .top-of-promotions .shape-fill {
-  fill: #E1DEE3;
+  fill: #e1dee3;
 }
 
 .bottom-of-promotions {
@@ -316,7 +329,7 @@
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  background-color: #E4F0D0;
+  background-color: #e4f0d0;
 }
 
 .bottom-of-promotions svg {
@@ -351,7 +364,7 @@
   border-radius: 20px;
   position: relative;
   padding: 1.8rem;
-  border: 2px solid #A1B5D8;
+  border: 2px solid #a1b5d8;
   transition: 0.5s ease-out;
   overflow: visible;
 }
@@ -359,7 +372,7 @@
 .card-details {
   color: black;
   height: 100%;
-  gap: .5em;
+  gap: 0.5em;
   display: grid;
   place-content: start;
 }
@@ -369,10 +382,10 @@
   width: 60%;
   border-radius: 1rem;
   border: none;
-  background-color: #3A4F41;
+  background-color: #3a4f41;
   color: #fff;
   font-size: 1rem;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   position: absolute;
   left: 50%;
   bottom: 0;
@@ -392,7 +405,7 @@
 
 /*Hover*/
 .card:hover {
-  border-color: #3A4F41;
+  border-color: #3a4f41;
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
 }
 
@@ -402,7 +415,7 @@
 }
 
 .filter-sidepanel {
-background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -462,7 +475,9 @@ background: rgba(255, 255, 255, 0.2);
   position: absolute;
   height: 60px;
   width: 60px;
-  box-shadow: 0px -1px 0px 0px #888888, 0px 1px 0px 0px black;
+  box-shadow:
+    0px -1px 0px 0px #888888,
+    0px 1px 0px 0px black;
   border-radius: 30px;
 }
 
@@ -512,7 +527,11 @@ background: rgba(255, 255, 255, 0.2);
   margin-left: -18px;
   margin-top: -18px;
   z-index: 3;
-  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1), inset 0px 0px 10px rgba(0, 0, 0, 0.1), inset 0px 2px 0px 0px #090909, inset 0px -1px 0px 0px #888888;
+  box-shadow:
+    0px 0px 10px rgba(255, 255, 255, 0.1),
+    inset 0px 0px 10px rgba(0, 0, 0, 0.1),
+    inset 0px 2px 0px 0px #090909,
+    inset 0px -1px 0px 0px #888888;
 }
 
 .gear-inner {

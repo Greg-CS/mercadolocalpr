@@ -57,7 +57,7 @@ export default async function Login() {
   };
 
   return (
-    <div className="grid gap-10 xl:gap-0 xl:flex justify-center p-10 m-10 bg-[#E4F0D0] rounded-md">
+    <div className="grid gap-10 xl:gap-0 xl:flex justify-center md:p-10 p-2 md:m-10 bg-[#E4F0D0] rounded-md">
       {/* <div className="border-2 p-10 rounded-md bg-white w-[40vw]">
       <Auth
         supabaseClient={supabaseClient}
@@ -83,7 +83,7 @@ export default async function Login() {
         put epic shit here
       </span>
     </div> */}
-      <div className="flex flex-col justify-center flex-1 w-full gap-2 px-8 sm:max-w-md">
+      <div className="shadow-xl card w-96 bg-base-100">
         <LoginForm signIn={signIn} signUp={signUp} user={user} />
       </div>
     </div>
