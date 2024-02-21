@@ -6,7 +6,7 @@ export const Footer = () => {
   return (
     <footer className="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
       {/* <!-- Grid --> */}
-      <div className="grid grid-cols-2 gap-6 mb-10 md:grid-cols-4 lg:grid-cols-5">
+      <div className="grid grid-cols-1 gap-4 mb-10 md:gap-6 sm:grid-cols-3 lg:grid-cols-4">
         <div className="hidden col-span-full lg:col-span-1 lg:block">
           <a
             className="flex-none text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
@@ -23,7 +23,7 @@ export const Footer = () => {
 
         <div>
           <h4 className="text-xs font-semibold text-gray-900 uppercase dark:text-gray-100">
-            Product
+            Ventas
           </h4>
 
           <div className="grid mt-3 space-y-3 text-sm">
@@ -32,7 +32,7 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Pricing
+                Bienes Raices
               </a>
             </p>
             <p>
@@ -40,7 +40,7 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Changelog
+                Alquiler o Vacaciones
               </a>
             </p>
             <p>
@@ -48,7 +48,7 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Docs
+                Vehiculos
               </a>
             </p>
             <p>
@@ -56,7 +56,31 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Download
+                Mascotas
+              </a>
+            </p>
+            <p>
+              <a
+                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                href="#"
+              >
+                Articulos
+              </a>
+            </p>
+            <p>
+              <a
+                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                href="#"
+              >
+                Empleos
+              </a>
+            </p>
+            <p>
+              <a
+                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                href="#"
+              >
+                Servicios
               </a>
             </p>
           </div>
@@ -65,7 +89,7 @@ export const Footer = () => {
 
         <div>
           <h4 className="text-xs font-semibold text-gray-900 uppercase dark:text-gray-100">
-            Company
+            Compañia
           </h4>
 
           <div className="grid mt-3 space-y-3 text-sm">
@@ -74,7 +98,7 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                About us
+                Sobre Nosotros
               </a>
             </p>
             <p>
@@ -90,10 +114,10 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Careers
+                Carreras
               </a>{" "}
               <span className="inline text-blue-600 dark:text-blue-500">
-                — We&apos;re hiring
+                — Estamos Contratando
               </span>
             </p>
             <p>
@@ -101,7 +125,7 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Customers
+                Clientes
               </a>
             </p>
             <p>
@@ -109,15 +133,7 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Newsroom
-              </a>
-            </p>
-            <p>
-              <a
-                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                href="#"
-              >
-                Sitemap
+                Politicas de Privacidad
               </a>
             </p>
           </div>
@@ -126,7 +142,7 @@ export const Footer = () => {
 
         <div>
           <h4 className="text-xs font-semibold text-gray-900 uppercase dark:text-gray-100">
-            Resources
+            Recursos
           </h4>
 
           <div className="grid mt-3 space-y-3 text-sm">
@@ -135,7 +151,7 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Community
+                Comunidad
               </a>
             </p>
             <p>
@@ -143,7 +159,7 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Help & Support
+                Ayuda & Soporte
               </a>
             </p>
             <p>
@@ -151,83 +167,7 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                eBook
-              </a>
-            </p>
-            <p>
-              <a
-                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                href="#"
-              >
-                What&apos;s New
-              </a>
-            </p>
-            <p>
-              <a
-                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                href="#"
-              >
-                Status
-              </a>
-            </p>
-          </div>
-        </div>
-        {/* <!-- End Col --> */}
-
-        <div>
-          <h4 className="text-xs font-semibold text-gray-900 uppercase dark:text-gray-100">
-            Developers
-          </h4>
-
-          <div className="grid mt-3 space-y-3 text-sm">
-            <p>
-              <a
-                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                href="#"
-              >
-                Api
-              </a>
-            </p>
-            <p>
-              <a
-                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                href="#"
-              >
-                Status
-              </a>
-            </p>
-            <p>
-              <a
-                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                href="#"
-              >
-                GitHub
-              </a>{" "}
-              <span className="inline text-blue-600 dark:text-blue-500">
-                — New
-              </span>
-            </p>
-          </div>
-
-          <h4 className="text-xs font-semibold text-gray-900 uppercase mt-7 dark:text-gray-100">
-            Industries
-          </h4>
-
-          <div className="grid mt-3 space-y-3 text-sm">
-            <p>
-              <a
-                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                href="#"
-              >
-                Financial Services
-              </a>
-            </p>
-            <p>
-              <a
-                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                href="#"
-              >
-                Education
+                FAQ
               </a>
             </p>
           </div>
@@ -277,7 +217,7 @@ export const Footer = () => {
                     />
                   </g>
                 </svg>
-                English (US)
+                Español (PR)
                 <svg
                   className="flex-shrink-0 text-gray-600 hs-dropdown-open:rotate-180 size-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -446,19 +386,19 @@ export const Footer = () => {
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Terms
+                Terminos
               </a>
               <a
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Privacy
+                Privacidad
               </a>
               <a
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 href="#"
               >
-                Status
+                Estado
               </a>
             </div>
           </div>
@@ -470,10 +410,10 @@ export const Footer = () => {
                 href="#"
                 aria-label="Brand"
               >
-                Brand
+                Mercado LocalPR
               </a>
               <p className="mt-1 text-xs text-gray-600 sm:text-sm dark:text-gray-400">
-                © 2022 Preline.
+                © 2024 MercadoLocal PR.
               </p>
             </div>
 
@@ -485,13 +425,23 @@ export const Footer = () => {
               >
                 <svg
                   className="flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
-                  fill="currentColor"
                   viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                  <g clip-path="url(#clip0_17_61)">
+                    <path
+                      d="M8 0C3.58176 0 0 3.58176 0 8C0 11.7517 2.58304 14.8998 6.06752 15.7645V10.4448H4.41792V8H6.06752V6.94656C6.06752 4.22368 7.29984 2.9616 9.97312 2.9616C10.48 2.9616 11.3546 3.06112 11.7123 3.16032V5.37632C11.5235 5.35648 11.1955 5.34656 10.7882 5.34656C9.47648 5.34656 8.9696 5.84352 8.9696 7.13536V8H11.5827L11.1338 10.4448H8.9696V15.9414C12.9309 15.463 16.0003 12.0902 16.0003 8C16 3.58176 12.4182 0 8 0Z"
+                      fill="#6B7280"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_17_61">
+                      <rect width="16" height="16" fill="white" />
+                    </clipPath>
+                  </defs>
                 </svg>
               </a>
               <a
@@ -500,13 +450,23 @@ export const Footer = () => {
               >
                 <svg
                   className="flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
-                  fill="currentColor"
                   viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                  <g clip-path="url(#clip0_17_80)">
+                    <path
+                      d="M13.2676 1.26929H15.721L10.361 8.04672L16.6667 17.2693H11.7294L7.86232 11.6759L3.43753 17.2693H0.982607L6.7157 10.0201L0.666656 1.26929H5.72928L9.22476 6.3819L13.2676 1.26929ZM12.4065 15.6447H13.766L4.99058 2.80857H3.53172L12.4065 15.6447Z"
+                      fill="#6B7280"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_17_80">
+                      <rect width="16" height="16" fill="white" />
+                    </clipPath>
+                  </defs>
                 </svg>
               </a>
               <a
@@ -515,13 +475,16 @@ export const Footer = () => {
               >
                 <svg
                   className="flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
-                  fill="currentColor"
                   viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path d="M3.362 10.11c0 .926-.756 1.681-1.681 1.681S0 11.036 0 10.111C0 9.186.756 8.43 1.68 8.43h1.682v1.68zm.846 0c0-.924.756-1.68 1.681-1.68s1.681.756 1.681 1.68v4.21c0 .924-.756 1.68-1.68 1.68a1.685 1.685 0 0 1-1.682-1.68v-4.21zM5.89 3.362c-.926 0-1.682-.756-1.682-1.681S4.964 0 5.89 0s1.68.756 1.68 1.68v1.682H5.89zm0 .846c.924 0 1.68.756 1.68 1.681S6.814 7.57 5.89 7.57H1.68C.757 7.57 0 6.814 0 5.89c0-.926.756-1.682 1.68-1.682h4.21zm6.749 1.682c0-.926.755-1.682 1.68-1.682.925 0 1.681.756 1.681 1.681s-.756 1.681-1.68 1.681h-1.681V5.89zm-.848 0c0 .924-.755 1.68-1.68 1.68A1.685 1.685 0 0 1 8.43 5.89V1.68C8.43.757 9.186 0 10.11 0c.926 0 1.681.756 1.681 1.68v4.21zm-1.681 6.748c.926 0 1.682.756 1.682 1.681S11.036 16 10.11 16s-1.681-.756-1.681-1.68v-1.682h1.68zm0-.847c-.924 0-1.68-.755-1.68-1.68 0-.925.756-1.681 1.68-1.681h4.21c.924 0 1.68.756 1.68 1.68 0 .926-.756 1.681-1.68 1.681h-4.21z" />
+                  <path
+                    d="M15.8406 4.80001C15.8406 4.80001 15.6844 3.69689 15.2031 3.21251C14.5938 2.57501 13.9125 2.57189 13.6 2.53439C11.3625 2.37189 8.00313 2.37189 8.00313 2.37189H7.99687C7.99687 2.37189 4.6375 2.37189 2.4 2.53439C2.0875 2.57189 1.40625 2.57501 0.796875 3.21251C0.315625 3.69689 0.1625 4.80001 0.1625 4.80001C0.1625 4.80001 0 6.09689 0 7.39064V8.60314C0 9.89689 0.159375 11.1938 0.159375 11.1938C0.159375 11.1938 0.315625 12.2969 0.79375 12.7813C1.40313 13.4188 2.20313 13.3969 2.55938 13.4656C3.84063 13.5875 8 13.625 8 13.625C8 13.625 11.3625 13.6188 13.6 13.4594C13.9125 13.4219 14.5938 13.4188 15.2031 12.7813C15.6844 12.2969 15.8406 11.1938 15.8406 11.1938C15.8406 11.1938 16 9.90001 16 8.60314V7.39064C16 6.09689 15.8406 4.80001 15.8406 4.80001ZM6.34688 10.075V5.57814L10.6687 7.83439L6.34688 10.075Z"
+                    fill="#6B7280"
+                  />
                 </svg>
               </a>
             </div>

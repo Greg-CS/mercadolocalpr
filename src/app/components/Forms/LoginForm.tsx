@@ -238,7 +238,10 @@ export const LoginForm = ({ signIn, signUp, user }: Props) => {
 
                 {/* Sign in & sign up button */}
                 <div className="flex flex-col gap-2">
-                  <button className="px-4 py-2 text-white bg-green-700 rounded-md hover:bg-green-900 text-foreground ">
+                  <button
+                    className="px-4 py-2 text-white bg-green-700 rounded-md hover:bg-green-900 text-foreground "
+                    type="submit"
+                  >
                     Conéctate
                   </button>
                 </div>
@@ -395,7 +398,10 @@ export const LoginForm = ({ signIn, signUp, user }: Props) => {
 
                 {/* Sign in & sign up button */}
                 <div className="flex flex-col gap-2">
-                  <button className="px-4 py-2 text-white bg-green-700 rounded-md hover:bg-green-900 text-foreground ">
+                  <button
+                    className="px-4 py-2 text-white bg-green-700 rounded-md hover:bg-green-900 text-foreground "
+                    type="submit"
+                  >
                     Registrate
                   </button>
                 </div>
