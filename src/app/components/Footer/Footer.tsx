@@ -6,7 +6,7 @@ export const Footer = () => {
   return (
     <footer className="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
       {/* <!-- Grid --> */}
-      <div className="grid grid-cols-1 gap-4 mb-10 md:gap-6 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 mb-10 md:gap-6 sm:grid-cols-4 lg:grid-cols-5">
         <div className="hidden col-span-full lg:col-span-1 lg:block">
           <a
             className="flex-none text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
@@ -67,6 +67,24 @@ export const Footer = () => {
                 Articulos
               </a>
             </p>
+          </div>
+        </div>
+        {/* <!-- End Col --> */}
+
+        <div>
+          <h4 className="text-xs font-semibold text-gray-900 uppercase dark:text-gray-100">
+            Anuncios
+          </h4>
+
+          <div className="grid mt-3 space-y-3 text-sm">
+            <p>
+              <a
+                className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                href="#"
+              >
+                Eventos
+              </a>
+            </p>
             <p>
               <a
                 className="inline-flex text-gray-600 gap-x-2 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
@@ -86,7 +104,6 @@ export const Footer = () => {
           </div>
         </div>
         {/* <!-- End Col --> */}
-
         <div>
           <h4 className="text-xs font-semibold text-gray-900 uppercase dark:text-gray-100">
             Compañia
