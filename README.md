@@ -35,7 +35,7 @@ MercadolocalPR es una plataforma de compra y venta en línea enfocada en Puerto 
 For support, email gregor.gr20@gmail.com or join our Slack channel.
 
 
-## Run Locally
+## Installation
 
 Clone the project
 
@@ -49,6 +49,8 @@ Go to the project directory
   cd mercadolocalpr
 ```
 
+### Run Locally
+
 Install dependencies
 
 ```bash
@@ -61,3 +63,12 @@ Start the server
   npm run start
 ```
 
+### Run with Docker
+
+```bash
+docker build -t mercadolocalpr-next .
+```
+
+```bash
+docker run -p 3000:3000 mercadolocalpr-next
+```
