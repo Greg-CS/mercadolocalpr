@@ -38,6 +38,6 @@ export class DeletePostHandler extends CommandHandler {
         post.delete(new UserId(cmd.userId));
 
         // Save the modified post entity using the unit of work
-        this.unitOfWork.posts.save(post);
+        this.unitOfWork.save(post);
     }
 }

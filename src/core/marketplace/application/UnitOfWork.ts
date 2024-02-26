@@ -17,11 +17,10 @@ export default class UnitOfWork extends AbstractUnitOfWork {
 
     /**
      * Performs the actual saving of the Post entity using the PostRepository.
-     * @param {Post} entity - The Post entity to be saved.
-     * @throws {Error} - Throws an error if the saving process fails.
+     * @param {Post} post - The Post entity to be saved.
      */
-    public async doSave(entity: Post): Promise<void> {
-        // Save the Post entity using the PostRepository
-        await this.posts.save(entity);
+    public async doSave(post: Post): Promise<void> {
+        // Save the Post aggregate using the PostRepository
+        await this.posts.save(post);
     }
 }
