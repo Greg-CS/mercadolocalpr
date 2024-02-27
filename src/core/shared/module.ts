@@ -1,57 +1,63 @@
 import Command from "../shared/application/Command";
 import CommandHandler from "../shared/application/CommandHandler";
 import DomainEventHandler from "./application/DomainEventHandler";
-import MessageBus from "./application/MessageBus";
-import AbstractUnitOfWork from "./application/UnitOfWork";
+import MessageBus from "./infrastructure/MessageBus";
 import DomainEvent from "./domain/DomainEvent";
+import AbstractMessageBus from "./application/AbstractMessageBus";
 
 /**
  * Module class represents a modularized component in the application.
  * It provides a message bus for executing commands and dispatching domain events.
  */
-export default class Module {
-    private messageBus: MessageBus;
+export default abstract class Module {
+    /**
+     * The id of the moderated post.
+     * @type {AbstractMessageBus}
+     * @readonly
+     */
+    protected messageBus: AbstractMessageBus;
 
     /**
      * Creates an instance of the Module class.
-     * @param {AbstractUnitOfWork} unitOfWork - The abstract unit of work for managing transactions.
      */
-    constructor(protected unitOfWork: AbstractUnitOfWork) {
+    constructor() {
         this.messageBus = new MessageBus();
     }
 
     /**
      * Executes a command and processes any resulting domain events.
      * @param {Command} cmd - The command to be executed.
+     * @returns {Promise<void>} - A promise indicating the completion of the execution.
      */
     public async execute(cmd: Command): Promise<void> {
         await this.messageBus.execute(cmd);
 
-        let events = this.unitOfWork.getEventsToProcess();
+        let events = this.getNewEvents();
 
         while (events.length > 0) {
             let evt = events.at(0);
             events = events.slice(1);
 
             if (evt) await this.messageBus.dispatch(evt);
-            events = events.concat(this.unitOfWork.getEventsToProcess());
+            events = events.concat(this.getNewEvents());
         }
     }
 
     /**
      * Dispatches a domain event and processes any resulting domain events.
      * @param {DomainEvent} evt - The domain event to be dispatched.
+     * @returns {Promise<void>} - A promise indicating the completion of the dispatch.
      */
     public async dispatch(evt: DomainEvent): Promise<void> {
         await this.messageBus.dispatch(evt);
 
-        let events = this.unitOfWork.getEventsToProcess();
+        let events = this.getNewEvents();
 
         while (events.length > 0) {
             let newEvent = events.at(0);
 
             if (newEvent) await this.messageBus.dispatch(newEvent);
-            events = events.concat(this.unitOfWork.getEventsToProcess());
+            events = events.concat(this.getNewEvents());
         }
     }
 
@@ -72,4 +78,11 @@ export default class Module {
     protected registerEvent(name: string, handler: DomainEventHandler): void {
         this.messageBus.registerEvent(name, handler);
     }
+
+    /**
+     * Retrieves new domain events that need to be processed.
+     * Must be implemented by subclasses.
+     * @returns {DomainEvent[]} - An array of new domain events.
+     */
+    protected abstract getNewEvents(): DomainEvent[];
 }

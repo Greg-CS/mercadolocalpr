@@ -1,7 +1,8 @@
 import DomainEvent from "../domain/DomainEvent";
-import Command from "./Command";
-import CommandHandler from "./CommandHandler";
-import DomainEventHandler from "./DomainEventHandler";
+import Command from "../application/Command";
+import CommandHandler from "../application/CommandHandler";
+import DomainEventHandler from "../application/DomainEventHandler";
+import AbstractMessageBus from "../application/AbstractMessageBus";
 
 /**
  * Interface representing a mapping of command names to their corresponding handlers.
@@ -21,7 +22,7 @@ interface EventHandlerMap {
  * MessageBus class acts as a central communication hub for executing commands and dispatching domain events.
  * It manages the registration of command and event handlers.
  */
-export default class MessageBus {
+export default class MessageBus implements AbstractMessageBus {
     private commandHandlers: CommandHandlerMap;
     private eventHandlers: EventHandlerMap;
 
