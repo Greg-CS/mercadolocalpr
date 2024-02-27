@@ -5,13 +5,44 @@ import DomainEvent from "@/core/shared/domain/DomainEvent";
  * It extends the base DomainEvent class.
  */
 export class PostCreatedEvent extends DomainEvent {
+    /**
+     * @type {string} - The unique identifier of the created post.
+     */
     public readonly id: string;
+
+    /**
+     * @type {string} - The title of the post.
+     */
     public readonly title: string;
+
+    /**
+     * @type {string} - The description of the post.
+     */
     public readonly description: string;
+
+    /**
+     * @type {string} - The price of the post.
+     */
     public readonly price: string;
+
+    /**
+     * @type {string} - The location of the post.
+     */
     public readonly location: string;
+
+    /**
+     * @type {string} - The unique identifier of the user who created the post.
+     */
     public readonly userId: string;
+
+    /**
+     * @type {string} - The category of the post.
+     */
     public readonly category: string;
+
+    /**
+     * @type {string} - The URL of the photo associated with the post.
+     */
     public readonly photoUrl: string;
 
     /**
@@ -83,12 +114,18 @@ export class PostCreatedEvent extends DomainEvent {
  */
 export class PostDeletedEvent extends DomainEvent {
     /**
+     * @type {string} - The unique identifier of the post to be deleted.
+     */
+    public readonly postId: string;
+
+    /**
      * Creates an instance of the PostDeletedEvent.
      * @param {string} postId - The unique identifier of the post to be deleted.
      * @param {string} timestamp - The timestamp of the event.
      */
-    constructor(public readonly postId: string, timestamp?: string) {
+    constructor(postId: string, timestamp?: string) {
         super(timestamp);
+        this.postId = postId;
     }
 
     /**

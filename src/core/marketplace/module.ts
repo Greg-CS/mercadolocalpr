@@ -1,3 +1,4 @@
+import DomainEvent from "../shared/domain/DomainEvent";
 import Module from "../shared/module";
 import CreatePostCommand from "./application/CreatePost/CreatePostCommand";
 import CreatePostHandler from "./application/CreatePost/CreatePostHandler";
@@ -14,13 +15,30 @@ import PostReadModelStore from "./domain/PostReadModelStore";
  */
 export default class PostModule extends Module {
     /**
+     * The UnitOfWork instance for managing database operations.
+     * @type {UnitOfWork}
+     * @private
+     */
+    private unitOfWork: UnitOfWork;
+
+    /**
+     * The store for managing Post read models.
+     * @type {PostReadModelStore}
+     * @private
+     */
+    private postModels: PostReadModelStore;
+
+    /**
      * Creates an instance of the PostModule.
      * @param {UnitOfWork} unitOfWork - The UnitOfWork instance for managing database operations.
      * @param {PostReadModelStore} postModels - The store for managing Post read models.
      */
-    constructor(unitOfWork: UnitOfWork, private postModels: PostReadModelStore) {
+    constructor(unitOfWork: UnitOfWork, postModels: PostReadModelStore) {
         // Call the constructor of the base class (Module).
-        super(unitOfWork);
+        super();
+
+        this.unitOfWork = unitOfWork;
+        this.postModels = postModels;
 
         // Commands
         this.registerCommand(CreatePostCommand.name, new CreatePostHandler(unitOfWork));
@@ -29,5 +47,14 @@ export default class PostModule extends Module {
         // Events
         this.registerEvent(PostCreatedEvent.name, new CreatePostReadModelHandler(postModels));
         this.registerEvent(PostDeletedEvent.name, new DeletePostReadModelHandler(postModels));
+    }
+
+    /**
+     * Retrieves the new events from the UnitOfWork.
+     * @returns {DomainEvent[]} - An array of new events.
+     * @protected
+     */
+    protected getNewEvents(): DomainEvent[] {
+        return this.unitOfWork.getEventsToProcess();
     }
 }
