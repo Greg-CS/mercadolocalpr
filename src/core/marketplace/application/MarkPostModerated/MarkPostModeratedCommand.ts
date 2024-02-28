@@ -1,11 +1,12 @@
-import DomainEvent from "@/core/shared/domain/DomainEvent";
+import Command from "@/core/shared/application/Command";
 
 /**
- * Represents a domain event indicating that a post has been moderated.
+ * Represents a command to mark a post as moderated.
+ * Extends the base Command class.
  */
-export class PostModeratedEvent extends DomainEvent {
+export default class MarkPostModeratedCommand extends Command {
     /**
-     * The id of the moderated post.
+     * The unique identifier of the post.
      * @type {string}
      * @readonly
      */
@@ -26,8 +27,8 @@ export class PostModeratedEvent extends DomainEvent {
     public readonly moderatedDescription: string;
 
     /**
-     * Creates an instance of the PostModeratedEvent.
-     * @param {string} postId - The id of moderated the post.
+     * Creates an instance of the MarkPostModeratedCommand.
+     * @param {string} postId - The unique identifier of the post.
      * @param {string} moderatedTitle - The moderated title of the post.
      * @param {string} moderatedDescription - The moderated description of the post.
      */
@@ -36,17 +37,5 @@ export class PostModeratedEvent extends DomainEvent {
         this.postId = postId;
         this.moderatedTitle = moderatedTitle;
         this.moderatedDescription = moderatedDescription;
-    }
-
-    /**
-     * Converts the event data to a JSON-formatted string.
-     * @returns {string} - The JSON representation of the event data.
-     */
-    public toJson(): string {
-        return JSON.stringify({
-            postId: this.postId,
-            moderatedTitle: this.moderatedTitle,
-            moderatedDescription: this.moderatedDescription,
-        });
     }
 }

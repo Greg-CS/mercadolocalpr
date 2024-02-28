@@ -145,3 +145,64 @@ export class PostDeletedEvent extends DomainEvent {
         return new PostDeletedEvent(obj.postId, obj.timestamp);
     }
 }
+
+
+/**
+ * Represents an event indicating that a post has been marked as moderated.
+ * Extends the base DomainEvent class.
+ */
+export class PostMarkedModeratedEvent extends DomainEvent {
+    /** The unique identifier of the post. */
+    public readonly postId: string;
+
+    /** The moderated title of the post. */
+    public readonly moderatedTitle: string;
+
+    /** The moderated description of the post. */
+    public readonly moderatedDescription: string;
+
+    /**
+     * Creates an instance of the PostMarkedModeratedEvent.
+     * @param {string} postId - The unique identifier of the post.
+     * @param {string} moderatedTitle - The moderated title of the post.
+     * @param {string} moderatedDescription - The moderated description of the post.
+     * @param {string} timestamp - The timestamp of the event.
+     */
+    constructor(
+        postId: string,
+        moderatedTitle: string,
+        moderatedDescription: string,
+        timestamp?: string
+    ) {
+        super(timestamp);
+        this.postId = postId;
+        this.moderatedTitle = moderatedTitle;
+        this.moderatedDescription = moderatedDescription;
+    }
+
+    /**
+     * Converts the event to a JSON-formatted string.
+     * @returns {string} - The JSON-formatted string representing the event.
+     */
+    public toJson(): string {
+        return JSON.stringify({
+            postId: this.postId,
+            moderatedTitle: this.moderatedTitle,
+            moderatedDescription: this.moderatedDescription,
+        });
+    }
+
+    /**
+     * Creates a PostMarkedModeratedEvent instance from a JSON object.
+     * @param {any} obj - The JSON object containing event data.
+     * @returns {PostMarkedModeratedEvent} - The created PostMarkedModeratedEvent instance.
+     */
+    public static fromJson(obj: any): PostMarkedModeratedEvent {
+        return new PostMarkedModeratedEvent(
+            obj.postId,
+            obj.moderatedTitle,
+            obj.moderatedDescription,
+            obj.timestamp
+        );
+    }
+}

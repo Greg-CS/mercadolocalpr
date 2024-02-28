@@ -6,8 +6,10 @@ import CreatePostReadModelHandler from "./application/CreatePost/CreatePostReadM
 import DeletePostCommand from "./application/DeletePost/DeletePostCommand";
 import { DeletePostHandler } from "./application/DeletePost/DeletePostHandler";
 import DeletePostReadModelHandler from "./application/DeletePost/DeletePostReadModelHandler";
+import MarkPostModeratedCommand from "./application/MarkPostModerated/MarkPostModeratedCommand";
+import MarkPostModeratedHandler from "./application/MarkPostModerated/MarkPostModeratedHandler";
 import UnitOfWork from "./application/UnitOfWork";
-import { PostCreatedEvent, PostDeletedEvent } from "./domain/Events";
+import { PostCreatedEvent, PostDeletedEvent, PostMarkedModeratedEvent } from "./domain/Events";
 import PostReadModelStore from "./domain/PostReadModelStore";
 
 /**
@@ -43,10 +45,12 @@ export default class PostModule extends Module {
         // Commands
         this.registerCommand(CreatePostCommand.name, new CreatePostHandler(unitOfWork));
         this.registerCommand(DeletePostCommand.name, new DeletePostHandler(unitOfWork));
+        this.registerCommand(MarkPostModeratedCommand.name, new MarkPostModeratedHandler(unitOfWork));
 
         // Events
         this.registerEvent(PostCreatedEvent.name, new CreatePostReadModelHandler(postModels));
         this.registerEvent(PostDeletedEvent.name, new DeletePostReadModelHandler(postModels));
+        // add handler for updating the read model when the post is moderated.
     }
 
     /**

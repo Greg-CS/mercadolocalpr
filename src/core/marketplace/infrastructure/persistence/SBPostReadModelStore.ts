@@ -26,6 +26,7 @@ export default class SBPostReadModel extends SupabaseClient implements PostReadM
             location: post.location,
             user_id: post.userId,
             photo_url: post.photoUrl,
+            is_moderated: post.isModerated,
         });
     }
 

@@ -162,4 +162,12 @@ export default class Post extends AggregateRoot {
             this.addEvent(new events.PostDeletedEvent(postId.id));
         }
     }
+
+    public markModerated(moderatedTitle: string, moderatedDescription: string): void {
+        this.addEvent(new events.PostMarkedModeratedEvent(
+            this.state.id!.id,
+            moderatedTitle,
+            moderatedDescription
+        ))
+    }
 }

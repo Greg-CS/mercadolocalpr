@@ -43,6 +43,11 @@ export default class PostModel {
     public readonly photoUrl: string;
 
     /**
+     * @type {boolean} - Flag indictating if the post was moderated.
+     */
+    public readonly isModerated: boolean;
+
+    /**
      * @type {string} - The timestamp when the post was created.
      */
     public readonly createdAt: string;
@@ -57,6 +62,7 @@ export default class PostModel {
      * @param {string} userId - The unique identifier of the user who created the post.
      * @param {string} category - The category of the post.
      * @param {string} photoUrl - The URL of the photo associated with the post.
+     * @param {boolean} isModerated - Flag indictating if the post was moderated.
      * @param {string} createdAt - The timestamp when the post was created.
      */
     constructor(
@@ -68,6 +74,7 @@ export default class PostModel {
         userId: string,
         category: string,
         photoUrl: string,
+        isModerated: boolean,
         createdAt: string,
     ) {
         this.id = id;
@@ -78,6 +85,7 @@ export default class PostModel {
         this.userId = userId;
         this.category = category;
         this.photoUrl = photoUrl;
+        this.isModerated = isModerated;
         this.createdAt = createdAt;
     }
 }
