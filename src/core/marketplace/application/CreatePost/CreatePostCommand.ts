@@ -13,7 +13,7 @@ export default class CreatePostCommand extends Command {
      * @param {string} description - The description of the post.
      * @param {string} price - The price of the post.
      * @param {string} location - The location of the post.
-     * @param {string} userId - The unique identifier of the user creating the post.
+     * @param {string} sellerId - The unique identifier of the user creating the post.
      * @param {string} category - The category of the post.
      * @param {string} photoUrl - The URL of the photo associated with the post.
      */
@@ -23,7 +23,7 @@ export default class CreatePostCommand extends Command {
         public readonly description: string,
         public readonly price: string,
         public readonly location: string,
-        public readonly userId: string,
+        public readonly sellerId: string,
         public readonly category: string,
         public readonly photoUrl: string
     ) {

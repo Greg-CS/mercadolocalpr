@@ -33,7 +33,7 @@ export class PostCreatedEvent extends DomainEvent {
     /**
      * @type {string} - The unique identifier of the user who created the post.
      */
-    public readonly userId: string;
+    public readonly sellerId: string;
 
     /**
      * @type {string} - The category of the post.
@@ -52,19 +52,19 @@ export class PostCreatedEvent extends DomainEvent {
      * @param {string} description - The description of the post.
      * @param {string} price - The price of the post.
      * @param {string} location - The location of the post.
-     * @param {string} userId - The unique identifier of the user who created the post.
+     * @param {string} sellerId - The unique identifier of the user who created the post.
      * @param {string} category - The category of the post.
      * @param {string} photoUrl - The URL of the photo associated with the post.
      * @param {string} timestamp - The timestamp of the event.
      */
-    constructor(id: string, title: string, description: string, price: string, location: string, userId: string, category: string, photoUrl: string, timestamp?: string) {
+    constructor(id: string, title: string, description: string, price: string, location: string, sellerId: string, category: string, photoUrl: string, timestamp?: string) {
         super(timestamp);
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.location = location;
-        this.userId = userId;
+        this.sellerId = sellerId;
         this.category = category;
         this.photoUrl = photoUrl;
     }
@@ -80,7 +80,7 @@ export class PostCreatedEvent extends DomainEvent {
             description: this.description,
             price: this.price,
             location: this.location,
-            userId: this.userId,
+            sellerId: this.sellerId,
             category: this.category,
             photoUrl: this.photoUrl,
         });
@@ -100,7 +100,7 @@ export class PostCreatedEvent extends DomainEvent {
             data.description,
             data.price,
             data.location,
-            data.userId,
+            data.sellerId,
             data.category,
             data.photoUrl,
             obj.timestamp,

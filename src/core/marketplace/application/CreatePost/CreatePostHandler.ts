@@ -33,7 +33,7 @@ export default class CreatePostHandler extends CommandHandler {
                 cmd.description,
                 cmd.price,
                 cmd.location,
-                cmd.userId,
+                cmd.sellerId,
                 cmd.category,
                 cmd.photoUrl,
             );

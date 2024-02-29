@@ -17,14 +17,14 @@ class PostState {
      * @param {values.PostId} id - The unique identifier of the post.
      * @param {values.PostInfo} postInfo - Information about the post (title, photoUrl, location, description).
      * @param {values.PostPrice} price - The price of the post.
-     * @param {values.UserId} userId - The unique identifier of the user who created the post.
+     * @param {values.SellerId} sellerId - The unique identifier of the user who created the post.
      * @param {values.PostCategoryId} category - The category of the post.
      */
     public constructor(
         public id?: values.PostId,
         public postInfo?: values.PostInfo,
         public price?: values.PostPrice,
-        public userId?: values.UserId,
+        public sellerId?: values.SellerId,
         public category?: values.PostCategoryId,
     ) {
         this.isDeleted = false;
@@ -50,7 +50,7 @@ class PostState {
         this.id = new values.PostId(event.id);
         this.postInfo = new values.PostInfo(event.title, event.photoUrl, event.location, event.description);
         this.price = new values.PostPrice(event.price);
-        this.userId = new values.UserId(event.userId);
+        this.sellerId = new values.SellerId(event.sellerId);
         this.category = new values.PostCategoryId(event.category);
         this.isModerated = false;
         this.isDeleted = false;
@@ -101,12 +101,12 @@ export default class Post extends AggregateRoot {
 
     /**
      * Checks if the post is owned by the specified user.
-     * @param {values.UserId} userId - The ID of the user to check against.
+     * @param {values.SellerId} sellerId - The ID of the user to check against.
      * @returns {boolean} - True if the post is owned by the specified user, otherwise false.
      */
-    public isOwnedBy(userId: values.UserId): boolean {
-        if(this.state.userId) {
-            return this.state.userId?.equals(userId);
+    public isOwnedBy(sellerId: values.SellerId): boolean {
+        if(this.state.sellerId) {
+            return this.state.sellerId?.equals(sellerId);
         }
 
         return false;
@@ -127,12 +127,12 @@ export default class Post extends AggregateRoot {
      * @param {string} description - The description of the post.
      * @param {string} price - The price of the post.
      * @param {string} location - The location of the post.
-     * @param {string} userId - The unique identifier of the user creating the post.
+     * @param {string} sellerId - The unique identifier of the user creating the post.
      * @param {string} category - The category of the post.
      * @param {string} photoUrl - The URL of the photo associated with the post.
      * @returns {Post} - The newly created Post instance.
      */
-    public static create(id: string, title: string, description: string, price: string, location: string, userId: string, category: string, photoUrl: string): Post {
+    public static create(id: string, title: string, description: string, price: string, location: string, sellerId: string, category: string, photoUrl: string): Post {
         let post = new Post();
         
         let event = new events.PostCreatedEvent(
@@ -141,7 +141,7 @@ export default class Post extends AggregateRoot {
             description,
             price,
             location,
-            userId,
+            sellerId,
             category,
             photoUrl
         );
@@ -153,12 +153,12 @@ export default class Post extends AggregateRoot {
 
     /**
      * Marks the post as deleted if the provided user ID matches the owner's ID.
-     * @param {values.UserId} userId - The ID of the user initiating the deletion.
+     * @param {values.SellerId} sellerId - The ID of the user initiating the deletion.
      */
-    public delete(userId: values.UserId): void {
+    public delete(sellerId: values.SellerId): void {
         let postId = this.state.id;
 
-        if (postId && !this.isDeleted && this.isOwnedBy(userId)) {
+        if (postId && !this.isDeleted && this.isOwnedBy(sellerId)) {
             this.addEvent(new events.PostDeletedEvent(postId.id));
         }
     }

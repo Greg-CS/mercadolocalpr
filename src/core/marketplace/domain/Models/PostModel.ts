@@ -30,7 +30,7 @@ export default class PostModel {
     /**
      * @type {string} - The unique identifier of the user who created the post.
      */
-    public readonly userId: string;
+    public readonly sellerId: string;
 
     /**
      * @type {string} - The category of the post.
@@ -59,7 +59,7 @@ export default class PostModel {
      * @param {string} description - The description of the post.
      * @param {number} price - The price of the post.
      * @param {string} location - The location of the post.
-     * @param {string} userId - The unique identifier of the user who created the post.
+     * @param {string} sellerId - The unique identifier of the user who created the post.
      * @param {string} category - The category of the post.
      * @param {string} photoUrl - The URL of the photo associated with the post.
      * @param {boolean} isModerated - Flag indictating if the post was moderated.
@@ -71,7 +71,7 @@ export default class PostModel {
         description: string,
         price: number,
         location: string,
-        userId: string,
+        sellerId: string,
         category: string,
         photoUrl: string,
         isModerated: boolean,
@@ -82,7 +82,7 @@ export default class PostModel {
         this.description = description;
         this.price = price;
         this.location = location;
-        this.userId = userId;
+        this.sellerId = sellerId;
         this.category = category;
         this.photoUrl = photoUrl;
         this.isModerated = isModerated;

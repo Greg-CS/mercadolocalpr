@@ -9,9 +9,9 @@ export default class DeletePostCommand extends Command {
     /**
      * Creates an instance of the DeletePostCommand class.
      * @param {string} postId - The unique identifier for the post to be deleted.
-     * @param {string} userId - The unique identifier of the user initiating the deletion.
+     * @param {string} sellerId - The unique identifier of the user initiating the deletion.
      */
-    constructor(public readonly postId: string, public userId: string) {
+    constructor(public readonly postId: string, public sellerId: string) {
         super();
     }
 }

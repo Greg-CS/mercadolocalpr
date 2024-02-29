@@ -3,7 +3,7 @@ import DeletePostCommand from "./DeletePostCommand";
 import Post from "../../domain/Entities/Post";
 import PostNotFoundError from "../../domain/Exceptions/PostNotFoundError";
 import UnitOfWork from "../UnitOfWork";
-import { UserId } from "../../domain/Values";
+import { SellerId } from "../../domain/Values";
 
 /**
  * Command handler for processing the DeletePostCommand and deleting a post.
@@ -35,7 +35,7 @@ export class DeletePostHandler extends CommandHandler {
         let post = new Post(events);
 
         // Mark the post as deleted using the user ID initiating the deletion
-        post.delete(new UserId(cmd.userId));
+        post.delete(new SellerId(cmd.sellerId));
 
         // Save the modified post entity using the unit of work
         this.unitOfWork.save(post);

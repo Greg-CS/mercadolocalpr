@@ -98,9 +98,9 @@ export class PostPrice extends values.ValueObject {
  * Represents the unique identifier for a User.
  * It extends the base Id class from the values module.
  */
-export class UserId extends values.Id {
+export class SellerId extends values.Id {
     /**
-     * Creates an instance of the UserId class.
+     * Creates an instance of the SellerId class.
      * @param {string} id - The unique identifier for the User.
      */
     constructor(public readonly id: string) {
@@ -108,11 +108,11 @@ export class UserId extends values.Id {
     }
 
     /**
-     * Checks if this UserId is equal to another UserId.
-     * @param {UserId} other - The other UserId to compare.
-     * @returns {boolean} - True if the UserId values are equal, otherwise false.
+     * Checks if this SellerId is equal to another SellerId.
+     * @param {SellerId} other - The other SellerId to compare.
+     * @returns {boolean} - True if the SellerId values are equal, otherwise false.
      */
-    public equals(other: UserId): boolean {
+    public equals(other: SellerId): boolean {
         return this.id === other.id;
     }
 }
