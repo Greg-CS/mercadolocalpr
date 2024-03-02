@@ -54,9 +54,9 @@ export default class MessageBus implements AbstractMessageBus {
      * @param {DomainEvent} evt - The domain event to be dispatched.
      */
     public async dispatch(evt: DomainEvent): Promise<void> {
-        this.eventHandlers[evt.constructor.name]?.forEach((handler) => {
-            handler.handle(evt);
-        });
+        for(const handler of this.eventHandlers[evt.constructor.name]) {
+            await handler.handle(evt);
+        }
     }
 
     /**

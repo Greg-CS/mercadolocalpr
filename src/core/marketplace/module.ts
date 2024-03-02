@@ -6,10 +6,10 @@ import CreatePostReadModelHandler from "./application/CreatePost/CreatePostReadM
 import DeletePostCommand from "./application/DeletePost/DeletePostCommand";
 import { DeletePostHandler } from "./application/DeletePost/DeletePostHandler";
 import DeletePostReadModelHandler from "./application/DeletePost/DeletePostReadModelHandler";
-import MarkPostModeratedCommand from "./application/MarkPostModerated/MarkPostModeratedCommand";
-import MarkPostModeratedHandler from "./application/MarkPostModerated/MarkPostModeratedHandler";
 import UnitOfWork from "./application/UnitOfWork";
-import { PostCreatedEvent, PostDeletedEvent, PostMarkedModeratedEvent } from "./domain/Events";
+import PostModeratedHandler from "./application/UpdatePost/PostModeratedHandler";
+import { PostCreatedEvent, PostDeletedEvent, PostModeratedEvent } from "./domain/Events";
+import ModerationAPI from "./domain/ModerationAPI";
 import PostReadModelStore from "./domain/PostReadModelStore";
 
 /**
@@ -35,7 +35,11 @@ export default class PostModule extends Module {
      * @param {UnitOfWork} unitOfWork - The UnitOfWork instance for managing database operations.
      * @param {PostReadModelStore} postModels - The store for managing Post read models.
      */
-    constructor(unitOfWork: UnitOfWork, postModels: PostReadModelStore) {
+    constructor(
+        unitOfWork: UnitOfWork, 
+        postModels: PostReadModelStore,
+        moderationApi: ModerationAPI,
+    ) {
         // Call the constructor of the base class (Module).
         super();
 
@@ -43,12 +47,13 @@ export default class PostModule extends Module {
         this.postModels = postModels;
 
         // Commands
-        this.registerCommand(CreatePostCommand.name, new CreatePostHandler(unitOfWork));
+        this.registerCommand(CreatePostCommand.name, new CreatePostHandler(unitOfWork, moderationApi));
         this.registerCommand(DeletePostCommand.name, new DeletePostHandler(unitOfWork));
-        this.registerCommand(MarkPostModeratedCommand.name, new MarkPostModeratedHandler(unitOfWork));
 
         // Events
         this.registerEvent(PostCreatedEvent.name, new CreatePostReadModelHandler(postModels));
+        this.registerEvent(PostModeratedEvent.name, new PostModeratedHandler(postModels));
+        
         this.registerEvent(PostDeletedEvent.name, new DeletePostReadModelHandler(postModels));
         // add handler for updating the read model when the post is moderated.
     }

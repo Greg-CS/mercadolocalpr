@@ -5,52 +5,52 @@ export default class PostModel {
     /**
      * @type {string} - The unique identifier of the post.
      */
-    public readonly id: string;
+    public id: string;
 
     /**
      * @type {string} - The title of the post.
      */
-    public readonly title: string;
+    public title: string;
 
     /**
      * @type {string} - The description of the post.
      */
-    public readonly description: string;
+    public description: string;
 
     /**
      * @type {number} - The price of the post.
      */
-    public readonly price: number;
+    public price: number;
 
     /**
      * @type {string} - The location of the post.
      */
-    public readonly location: string;
+    public location: string;
 
     /**
      * @type {string} - The unique identifier of the user who created the post.
      */
-    public readonly sellerId: string;
+    public sellerId: string;
 
     /**
      * @type {string} - The category of the post.
      */
-    public readonly category: string;
+    public category: string;
 
     /**
      * @type {string} - The URL of the photo associated with the post.
      */
-    public readonly photoUrl: string;
+    public photoUrl: string;
 
     /**
      * @type {boolean} - Flag indictating if the post was moderated.
      */
-    public readonly isModerated: boolean;
+    public isModerated: boolean;
 
     /**
      * @type {string} - The timestamp when the post was created.
      */
-    public readonly createdAt: string;
+    public createdAt: string;
 
     /**
      * Creates an instance of the PostModel.

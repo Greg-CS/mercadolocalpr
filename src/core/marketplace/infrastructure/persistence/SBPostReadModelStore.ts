@@ -7,6 +7,7 @@ import PostModel from "../../domain/Models/PostModel";
  * Extends the SupabaseClient class for database interaction.
  */
 export default class SBPostReadModel extends SupabaseClient implements PostReadModelStore {
+    private static DB_SCHEMA = 'marketplace'
     
     /**
      * Adds a PostModel to the Supabase database.
@@ -14,9 +15,9 @@ export default class SBPostReadModel extends SupabaseClient implements PostReadM
      * @returns {Promise<void>} - A promise that resolves once the add operation is complete.
      */
     public async add(post: PostModel): Promise<void> {
-        const supabase = this.getClient('marketplace');
+        const supabase = this.getClient(SBPostReadModel.DB_SCHEMA);
 
-        const { error } = await supabase.from('post_view').insert({
+        await supabase.from('post_view').insert({
             uuid: post.id,
             created_at: post.createdAt,
             title: post.title,
@@ -36,11 +37,59 @@ export default class SBPostReadModel extends SupabaseClient implements PostReadM
      * @returns {Promise<void>} - A promise that resolves once the delete operation is complete.
      */
     public async delete(postId: string): Promise<void> {
-        const supabase = this.getClient('marketplace');
+        const supabase = this.getClient(SBPostReadModel.DB_SCHEMA);
 
-        const { error } = await supabase.from('post_view')
-                                        .delete()
-                                        .eq('uuid', postId);
-        
+        supabase.from('post_view')
+                .delete()
+                .eq('uuid', postId);        
+    }
+
+    public async get(postId: string): Promise<PostModel|null> {
+        const supabase = this.getClient(SBPostReadModel.DB_SCHEMA);
+
+        const { data } = await supabase.from('post_view')
+                                       .select('*')
+                                       .eq('uuid', postId)
+                                       .single();
+                
+        let model: PostModel|null = null;
+
+        if(data) {
+            model = new PostModel(
+                data.uuid,
+                data.title,
+                data.description,
+                data.price,
+                data.location,
+                data.user_id,
+                data.category,
+                data.photoUrl,
+                data.is_moderated,
+                data.created_at,
+            )
+        }
+
+        return Promise.resolve(model);
+    }
+
+    public async update(post: PostModel): Promise<void> {
+        const supabase = this.getClient(SBPostReadModel.DB_SCHEMA);
+
+        const data = {
+            uuid: post.id,
+            title: post.title,
+            description: post.description,
+            price: post.price,
+            location: post.location,
+            user_id: post.sellerId,
+            category: post.category,
+            photoUrl: post.photoUrl,
+            is_moderated: post.isModerated,
+            created_at: post.createdAt,
+        }
+
+        await supabase.from('post_view')
+                      .update(data)
+                      .eq('uuid', post.id)
     }
 }

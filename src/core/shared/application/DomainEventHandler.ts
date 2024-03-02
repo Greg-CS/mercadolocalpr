@@ -9,5 +9,5 @@ export default abstract class DomainEventHandler {
      * Handles the provided domain event by executing the associated logic.
      * @param {DomainEvent} evt - The domain event to be handled.
      */
-    public abstract handle(evt: DomainEvent): void;
+    public abstract handle(evt: DomainEvent): Promise<void>;
 }

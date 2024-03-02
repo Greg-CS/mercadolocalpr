@@ -2,18 +2,24 @@ import CommandHandler from "@/core/shared/application/CommandHandler";
 import CreatePostCommand from "./CreatePostCommand";
 import Post from "@/core/marketplace/domain/Entities/Post";
 import UnitOfWork from "@/core/marketplace/application/UnitOfWork";
+import ModerationAPI from "../../domain/ModerationAPI";
 
 /**
  * Command handler for processing the CreatePostCommand and creating a new post.
  * It extends the base CommandHandler class.
  */
 export default class CreatePostHandler extends CommandHandler {
+    private unitOfWork: UnitOfWork
+    private moderationApi: ModerationAPI;
+
     /**
      * Creates an instance of the CreatePostHandler class.
      * @param {UnitOfWork} unitOfWork - The unit of work for managing transactions.
      */
-    constructor(private unitOfWork: UnitOfWork) {
+    constructor(unitOfWork: UnitOfWork, moderationApi: ModerationAPI) {
         super();
+        this.unitOfWork = unitOfWork;
+        this.moderationApi = moderationApi;
     }
 
     /**
@@ -37,6 +43,8 @@ export default class CreatePostHandler extends CommandHandler {
                 cmd.category,
                 cmd.photoUrl,
             );
+
+            post.moderate(this.moderationApi)
 
             // Save the new post entity using the unit of work
             await this.unitOfWork.save(post);

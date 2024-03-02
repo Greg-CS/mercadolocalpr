@@ -151,7 +151,7 @@ export class PostDeletedEvent extends DomainEvent {
  * Represents an event indicating that a post has been marked as moderated.
  * Extends the base DomainEvent class.
  */
-export class PostMarkedModeratedEvent extends DomainEvent {
+export class PostModeratedEvent extends DomainEvent {
     /** The unique identifier of the post. */
     public readonly postId: string;
 
@@ -161,23 +161,29 @@ export class PostMarkedModeratedEvent extends DomainEvent {
     /** The moderated description of the post. */
     public readonly moderatedDescription: string;
 
+    /** The moderated description of the post. */
+    public readonly requiredModeration: boolean;
+
     /**
-     * Creates an instance of the PostMarkedModeratedEvent.
+     * Creates an instance of the PostModeratedEvent.
      * @param {string} postId - The unique identifier of the post.
      * @param {string} moderatedTitle - The moderated title of the post.
      * @param {string} moderatedDescription - The moderated description of the post.
+     * @param {boolean} requiredModeration - Flag indicateing if the post required moderation.
      * @param {string} timestamp - The timestamp of the event.
      */
     constructor(
         postId: string,
         moderatedTitle: string,
         moderatedDescription: string,
+        requiredModeration: boolean,
         timestamp?: string
     ) {
         super(timestamp);
         this.postId = postId;
         this.moderatedTitle = moderatedTitle;
         this.moderatedDescription = moderatedDescription;
+        this.requiredModeration = requiredModeration;
     }
 
     /**
@@ -189,19 +195,21 @@ export class PostMarkedModeratedEvent extends DomainEvent {
             postId: this.postId,
             moderatedTitle: this.moderatedTitle,
             moderatedDescription: this.moderatedDescription,
+            requiredModeration: this.requiredModeration,
         });
     }
 
     /**
-     * Creates a PostMarkedModeratedEvent instance from a JSON object.
+     * Creates a PostModeratedEvent instance from a JSON object.
      * @param {any} obj - The JSON object containing event data.
-     * @returns {PostMarkedModeratedEvent} - The created PostMarkedModeratedEvent instance.
+     * @returns {PostModeratedEvent} - The created PostModeratedEvent instance.
      */
-    public static fromJson(obj: any): PostMarkedModeratedEvent {
-        return new PostMarkedModeratedEvent(
+    public static fromJson(obj: any): PostModeratedEvent {
+        return new PostModeratedEvent(
             obj.postId,
             obj.moderatedTitle,
             obj.moderatedDescription,
+            obj.requiredModeration,
             obj.timestamp
         );
     }

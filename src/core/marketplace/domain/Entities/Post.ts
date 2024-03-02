@@ -3,6 +3,7 @@ import * as events from "../Events";
 
 import { AggregateRoot } from "@/core/shared/domain/Entity";
 import DomainEvent from "@/core/shared/domain/DomainEvent";
+import ModerationAPI from "../ModerationAPI";
 
 /**
  * State class representing the current state of a Post aggregate.
@@ -40,13 +41,17 @@ class PostState {
             this.applyPostCreatedEvent(event);
         else if (event instanceof events.PostDeletedEvent)
             this.applyPostDeletedEvent(event);
+        else if (event instanceof events.PostModeratedEvent)
+            this.applyPostModeratedEvent(event);
+        else
+            throw new Error(`Unhandled event '${event.constructor.name}'`)
     }
 
     /**
      * Applies the PostCreatedEvent to update the state with the event data.
      * @param {events.PostCreatedEvent} event - The PostCreatedEvent to be applied.
      */
-    protected applyPostCreatedEvent(event: events.PostCreatedEvent) {
+    private applyPostCreatedEvent(event: events.PostCreatedEvent) {
         this.id = new values.PostId(event.id);
         this.postInfo = new values.PostInfo(event.title, event.photoUrl, event.location, event.description);
         this.price = new values.PostPrice(event.price);
@@ -60,8 +65,25 @@ class PostState {
      * Applies the PostDeletedEvent to mark the post as deleted.
      * @param {events.PostDeletedEvent} event - The PostDeletedEvent to be applied.
      */
-    public applyPostDeletedEvent(event: events.PostDeletedEvent): void {
+    private applyPostDeletedEvent(event: events.PostDeletedEvent): void {
         this.isDeleted = true;
+    }
+
+    private applyPostModeratedEvent(event: events.PostModeratedEvent): void {
+        this.postInfo = new values.PostInfo(
+            event.moderatedTitle,
+            this.postInfo!.photoUrl,
+            this.postInfo!.location,
+            event.moderatedDescription
+        );
+    }
+
+    public getPostTitle(): string {
+        return this.postInfo!.title;
+    }
+
+    public getPostDescription(): string {
+        return this.postInfo!.description;
     }
 }
 
@@ -163,11 +185,20 @@ export default class Post extends AggregateRoot {
         }
     }
 
-    public markModerated(moderatedTitle: string, moderatedDescription: string): void {
-        this.addEvent(new events.PostMarkedModeratedEvent(
+    public moderate(moderationApi: ModerationAPI): void {
+        const currentTitle = this.state.getPostTitle();
+        const currentDescription = this.state.getPostDescription();
+
+        const moderatedTitle = moderationApi.clean(currentTitle);
+        const moderatedDescription = moderationApi.clean(currentDescription);
+
+        const requiredModeration = (moderatedTitle != currentTitle) || (moderatedDescription != currentDescription);
+
+        this.addEvent(new events.PostModeratedEvent(
             this.state.id!.id,
             moderatedTitle,
-            moderatedDescription
+            moderatedDescription,
+            requiredModeration
         ))
     }
 }

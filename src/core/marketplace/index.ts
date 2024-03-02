@@ -1,6 +1,8 @@
 import PostModule from "./module";
 import { getPostModels, getPostRepository } from "./infrastructure/persistence";
 import UnitOfWork from "./application/UnitOfWork";
+import BadWordsModeration from "./infrastructure/BadWordsModeration";
+
 
 /**
  * Factory function for creating an instance of the PostModule.
@@ -11,10 +13,11 @@ export default function createPostModule(config: any): PostModule {
     // Retrieve PostRepository and PostModels based on the provided configuration.
     const postRepository = getPostRepository(config.db);
     const postModels = getPostModels(config.db);
+    const moderationApi = new BadWordsModeration(config.moderation.replaceWith);
     
     // Create a new UnitOfWork instance with the retrieved PostRepository.
     const unitOfWork = new UnitOfWork(postRepository);
 
     // Instantiate and return a new PostModule with the created UnitOfWork and PostModels.
-    return new PostModule(unitOfWork, postModels);
+    return new PostModule(unitOfWork, postModels, moderationApi);
 }
