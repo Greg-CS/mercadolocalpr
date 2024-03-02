@@ -9,12 +9,24 @@ import ModerationAPI from "../../domain/ModerationAPI";
  * It extends the base CommandHandler class.
  */
 export default class CreatePostHandler extends CommandHandler {
-    private unitOfWork: UnitOfWork
+    /**
+     * The unit of work for managing transactions.
+     * @private
+     * @type {UnitOfWork}
+     */
+    private unitOfWork: UnitOfWork;
+
+    /**
+     * The Moderation API for handling post moderation.
+     * @private
+     * @type {ModerationAPI}
+     */
     private moderationApi: ModerationAPI;
 
     /**
      * Creates an instance of the CreatePostHandler class.
      * @param {UnitOfWork} unitOfWork - The unit of work for managing transactions.
+     * @param {ModerationAPI} moderationApi - The Moderation API for handling post moderation.
      */
     constructor(unitOfWork: UnitOfWork, moderationApi: ModerationAPI) {
         super();
@@ -26,6 +38,7 @@ export default class CreatePostHandler extends CommandHandler {
      * Handles the CreatePostCommand by creating a new post entity.
      * If the post with the specified ID already exists, the command is ignored.
      * @param {CreatePostCommand} cmd - The CreatePostCommand to be handled.
+     * @returns {Promise<void>} - A Promise that resolves when the handling is complete.
      */
     public async handle(cmd: CreatePostCommand): Promise<void> {
         // Check if a post with the specified ID already exists
@@ -44,7 +57,8 @@ export default class CreatePostHandler extends CommandHandler {
                 cmd.photoUrl,
             );
 
-            post.moderate(this.moderationApi)
+            // Send the post for moderation using the Moderation API
+            post.moderate(this.moderationApi);
 
             // Save the new post entity using the unit of work
             await this.unitOfWork.save(post);

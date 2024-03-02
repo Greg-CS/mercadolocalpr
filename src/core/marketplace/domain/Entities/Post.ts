@@ -10,7 +10,19 @@ import ModerationAPI from "../ModerationAPI";
  * It contains properties related to the Post entity and methods to apply domain events.
  */
 class PostState {
+    /**
+     * [placeholder]
+     *
+     * @public
+     * @type {boolean}
+     */
     public isDeleted: boolean;
+    /**
+     * [placeholder]
+     *
+     * @public
+     * @type {boolean}
+     */
     public isModerated: boolean;
 
     /**
@@ -69,6 +81,12 @@ class PostState {
         this.isDeleted = true;
     }
 
+    /**
+     * [placeholder]
+     *
+     * @private
+     * @param {events.PostModeratedEvent} event
+     */
     private applyPostModeratedEvent(event: events.PostModeratedEvent): void {
         this.postInfo = new values.PostInfo(
             event.moderatedTitle,
@@ -78,10 +96,22 @@ class PostState {
         );
     }
 
+    /**
+     * [placeholder]
+     *
+     * @public
+     * @returns {string}
+     */
     public getPostTitle(): string {
         return this.postInfo!.title;
     }
 
+    /**
+     * [placeholder]
+     *
+     * @public
+     * @returns {string}
+     */
     public getPostDescription(): string {
         return this.postInfo!.description;
     }
@@ -92,6 +122,12 @@ class PostState {
  * It extends the base AggregateRoot class and manages the state of the Post.
  */
 export default class Post extends AggregateRoot {
+    /**
+     * The current state of the Post.
+     *
+     * @private
+     * @type {PostState}
+     */
     private state: PostState;
 
     /**
@@ -185,6 +221,12 @@ export default class Post extends AggregateRoot {
         }
     }
 
+    /**
+     * Moderate the contents of a post.
+     *
+     * @public
+     * @param {ModerationAPI} moderationApi
+     */
     public moderate(moderationApi: ModerationAPI): void {
         const currentTitle = this.state.getPostTitle();
         const currentDescription = this.state.getPostDescription();

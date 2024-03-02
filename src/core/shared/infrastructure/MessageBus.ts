@@ -8,6 +8,9 @@ import AbstractMessageBus from "../application/AbstractMessageBus";
  * Interface representing a mapping of command names to their corresponding handlers.
  */
 interface CommandHandlerMap {
+    /**
+     * Mapping of command names to their corresponding handlers.
+     */
     [index: string]: CommandHandler;
 }
 
@@ -15,6 +18,9 @@ interface CommandHandlerMap {
  * Interface representing a mapping of event names to arrays of event handlers.
  */
 interface EventHandlerMap {
+    /**
+     * Mapping of event names to arrays of event handlers.
+     */
     [index: string]: DomainEventHandler[];
 }
 
@@ -23,7 +29,18 @@ interface EventHandlerMap {
  * It manages the registration of command and event handlers.
  */
 export default class MessageBus implements AbstractMessageBus {
+    /**
+     * Mapping of command names to their corresponding handlers.
+     * @private
+     * @type {CommandHandlerMap}
+     */
     private commandHandlers: CommandHandlerMap;
+    
+    /**
+     * Mapping of event names to arrays of event handlers.
+     * @private
+     * @type {EventHandlerMap}
+     */
     private eventHandlers: EventHandlerMap;
 
     /**
@@ -54,7 +71,7 @@ export default class MessageBus implements AbstractMessageBus {
      * @param {DomainEvent} evt - The domain event to be dispatched.
      */
     public async dispatch(evt: DomainEvent): Promise<void> {
-        for(const handler of this.eventHandlers[evt.constructor.name]) {
+        for (const handler of this.eventHandlers[evt.constructor.name] || []) {
             await handler.handle(evt);
         }
     }

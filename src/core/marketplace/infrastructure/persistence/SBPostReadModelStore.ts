@@ -7,7 +7,13 @@ import PostModel from "../../domain/Models/PostModel";
  * Extends the SupabaseClient class for database interaction.
  */
 export default class SBPostReadModel extends SupabaseClient implements PostReadModelStore {
-    private static DB_SCHEMA = 'marketplace'
+    /**
+     * The database schema for the Supabase tables.
+     * @private
+     * @static
+     * @type {string}
+     */
+    private static DB_SCHEMA: string = 'marketplace';
     
     /**
      * Adds a PostModel to the Supabase database.
@@ -39,18 +45,19 @@ export default class SBPostReadModel extends SupabaseClient implements PostReadM
     public async delete(postId: string): Promise<void> {
         const supabase = this.getClient(SBPostReadModel.DB_SCHEMA);
 
-        supabase.from('post_view')
-                .delete()
-                .eq('uuid', postId);        
+        await supabase.from('post_view').delete().eq('uuid', postId);
     }
 
+    /**
+     * Retrieves a PostModel from the Supabase database based on its unique identifier.
+     * @public
+     * @param {string} postId - The unique identifier of the PostModel to be retrieved.
+     * @returns {Promise<PostModel|null>} - A promise that resolves to the retrieved PostModel or null if not found.
+     */
     public async get(postId: string): Promise<PostModel|null> {
         const supabase = this.getClient(SBPostReadModel.DB_SCHEMA);
 
-        const { data } = await supabase.from('post_view')
-                                       .select('*')
-                                       .eq('uuid', postId)
-                                       .single();
+        const { data } = await supabase.from('post_view').select('*').eq('uuid', postId).single();
                 
         let model: PostModel|null = null;
 
@@ -66,12 +73,18 @@ export default class SBPostReadModel extends SupabaseClient implements PostReadM
                 data.photoUrl,
                 data.is_moderated,
                 data.created_at,
-            )
+            );
         }
 
-        return Promise.resolve(model);
+        return model;
     }
 
+    /**
+     * Updates a PostModel in the Supabase database.
+     * @public
+     * @param {PostModel} post - The PostModel instance to be updated.
+     * @returns {Promise<void>} - A promise that resolves once the update operation is complete.
+     */
     public async update(post: PostModel): Promise<void> {
         const supabase = this.getClient(SBPostReadModel.DB_SCHEMA);
 
@@ -83,13 +96,11 @@ export default class SBPostReadModel extends SupabaseClient implements PostReadM
             location: post.location,
             user_id: post.sellerId,
             category: post.category,
-            photoUrl: post.photoUrl,
+            photo_url: post.photoUrl,
             is_moderated: post.isModerated,
             created_at: post.createdAt,
-        }
+        };
 
-        await supabase.from('post_view')
-                      .update(data)
-                      .eq('uuid', post.id)
+        await supabase.from('post_view').update(data).eq('uuid', post.id);
     }
 }
