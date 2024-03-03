@@ -1,51 +1,66 @@
-import DomainEvent from "../domain/DomainEvent";
 import { Entity } from "../domain/Entity";
+import Repository from "../domain/Repository";
+import ChangeTracker from "./ChangeTracker";
 
 /**
- * AbstractUnitOfWork class represents an abstract unit of work for managing transactions.
- * It provides methods for saving entities and handling domain events.
+ * UnitOfWork class represents a unit of work for managing changes to entities and their persistence.
  */
-export default abstract class AbstractUnitOfWork {
-    private eventsToProcess: DomainEvent[];
+export default class UnitOfWork {
+    /**
+     * The repository used by the unit of work.
+     *
+     * @private
+     * @type {Repository}
+     */
+    public repository: Repository;
 
     /**
-     * Creates an instance of the AbstractUnitOfWork class.
+     * An array of entities that have been changed within the unit of work.
+     *
+     * @private
+     * @type {Entity[]}
      */
-    constructor() {
-        this.eventsToProcess = [];
+    private changedEntities: Entity[];
+
+    /**
+     * Creates an instance of the UnitOfWork class.
+     *
+     * @param {Repository} repository - The repository associated with the unit of work.
+     */
+    constructor(repository: Repository) {
+        this.repository = repository;
+        this.changedEntities = [];
     }
 
     /**
-     * Saves the provided entity, processes its events, and clears the entity's events.
+     * Saves the provided entity, processes its events, and adds it to the list of changed entities.
+     *
      * @param {Entity} entity - The entity to be saved.
+     * @returns {Promise<void>} - A promise indicating the completion of the save operation.
      * @throws {Error} - Throws an error if the doSave method is not implemented by the concrete subclass.
      */
     public async save(entity: Entity): Promise<void> {
-        await this.doSave(entity);
-
-        this.eventsToProcess = this.eventsToProcess.concat(entity.getEvents());
-
-        entity.clearEvents();
+        this.repository.save(entity);
+        this.changedEntities.push(entity);
     }
 
     /**
-     * Performs the actual saving of the entity.
-     * Subclasses must implement this method to handle the specific saving logic.
-     * @param {Entity} entity - The entity to be saved.
+     * Commits the changes in the unit of work by adding changed entities to the ChangeTracker and resetting the list of changed entities.
+     *
+     * @public
      */
-    public async doSave(entity: Entity): Promise<void> {
-        // Implementation specific to the concrete subclass
-    };
+    public commit(): void {
+        this.changedEntities.forEach(e => ChangeTracker.add(e));
+
+        this.resetChangedEntities();
+    }
 
     /**
-     * Retrieves and clears the domain events that need to be processed.
-     * @returns {DomainEvent[]} - The array of domain events to be processed.
+     * Resets the list of changed entities in the unit of work.
+     *
+     * @private
      */
-    public getEventsToProcess(): DomainEvent[] {
-        let events = this.eventsToProcess;
-
-        this.eventsToProcess = [];
-
-        return events;
+    private resetChangedEntities(): void {
+        this.changedEntities = [];
     }
 }

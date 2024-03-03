@@ -7,26 +7,108 @@ import Command from "@/core/shared/application/Command";
  */
 export default class CreatePostCommand extends Command {
     /**
-     * Creates an instance of the CreatePostCommand class.
-     * @param {string} postId - The unique identifier for the post.
+     * The unique identifier of the post being created.
+     *
+     * @public
+     * @readonly
+     * @type {string}
+     */
+    public readonly postId: string;
+
+    /**
+     * The title of the post.
+     *
+     * @public
+     * @readonly
+     * @type {string}
+     */
+    public readonly title: string;
+
+    /**
+     * The description of the post.
+     *
+     * @public
+     * @readonly
+     * @type {string}
+     */
+    public readonly description: string;
+
+    /**
+     * The price of the item being sold in the post.
+     *
+     * @public
+     * @readonly
+     * @type {string}
+     */
+    public readonly price: string;
+
+    /**
+     * The location or region associated with the post.
+     *
+     * @public
+     * @readonly
+     * @type {string}
+     */
+    public readonly location: string;
+
+    /**
+     * The unique identifier of the seller creating the post.
+     *
+     * @public
+     * @readonly
+     * @type {string}
+     */
+    public readonly sellerId: string;
+
+    /**
+     * The category or type of the item being posted.
+     *
+     * @public
+     * @readonly
+     * @type {string}
+     */
+    public readonly category: string;
+
+    /**
+     * The URL of the photo associated with the post.
+     *
+     * @public
+     * @readonly
+     * @type {string}
+     */
+    public readonly photoUrl: string;
+
+    /**
+     * Creates an instance of CreatePostCommand.
+     *
+     * @constructor
+     * @param {string} postId - The unique identifier of the post being created.
      * @param {string} title - The title of the post.
      * @param {string} description - The description of the post.
-     * @param {string} price - The price of the post.
-     * @param {string} location - The location of the post.
-     * @param {string} sellerId - The unique identifier of the user creating the post.
-     * @param {string} category - The category of the post.
+     * @param {string} price - The price of the item being sold in the post.
+     * @param {string} location - The location or region associated with the post.
+     * @param {string} sellerId - The unique identifier of the seller creating the post.
+     * @param {string} category - The category or type of the item being posted.
      * @param {string} photoUrl - The URL of the photo associated with the post.
      */
     constructor(
-        public readonly postId: string,
-        public readonly title: string,
-        public readonly description: string,
-        public readonly price: string,
-        public readonly location: string,
-        public readonly sellerId: string,
-        public readonly category: string,
-        public readonly photoUrl: string
+        postId: string,
+        title: string,
+        description: string,
+        price: string,
+        location: string,
+        sellerId: string,
+        category: string,
+        photoUrl: string
     ) {
         super();
+        this.postId = postId;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.location = location;
+        this.sellerId = sellerId;
+        this.category = category;
+        this.photoUrl = photoUrl;
     }
 }

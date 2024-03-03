@@ -1,23 +1,36 @@
-import PostModule from "./module";
-import { getPostModels, getPostRepository } from "./infrastructure/persistence";
-import UnitOfWork from "./application/UnitOfWork";
 import BadWordsModeration from "./infrastructure/BadWordsModeration";
-
+import CreatePostCommand from "./application/CreatePost/CreatePostCommand";
+import DeletePostCommand from "./application/DeletePost/DeletePostCommand";
+import CreatePostHandler from "./application/CreatePost/CreatePostHandler";
+import { DeletePostHandler } from "./application/DeletePost/DeletePostHandler";
+import { PostCreatedEvent, PostDeletedEvent, PostModeratedEvent } from "./domain/Events";
+import CreatePostReadModelHandler from "./application/CreatePost/CreatePostReadModelHandler";
+import PostModeratedHandler from "./application/UpdatePost/PostModeratedHandler";
+import DeletePostReadModelHandler from "./application/DeletePost/DeletePostReadModelHandler";
+import AbstractMessageBus from "../shared/application/AbstractMessageBus";
+import UnitOfWork from "../shared/application/UnitOfWork";
+import SBPostRepository from "./infrastructure/persistence/SBPostRepository";
+import SBPostReadModel from "./infrastructure/persistence/SBPostReadModelStore";
 
 /**
- * Factory function for creating an instance of the PostModule.
- * @param {any} config - Configuration object.
- * @returns {PostModule} - An instance of the PostModule.
+ * Initializes the application by configuring and registering necessary components.
+ *
+ * @param {AbstractMessageBus} bus - The message bus used for communication between different parts of the application.
+ * @param {*} config - The configuration object for initializing components.
  */
-export default function createPostModule(config: any): PostModule {
-    // Retrieve PostRepository and PostModels based on the provided configuration.
-    const postRepository = getPostRepository(config.db);
-    const postModels = getPostModels(config.db);
+export default function initialize(bus: AbstractMessageBus, config: any): void {
+    // Initialize infrastructure components with Supabase integration
+    const postRepository = new SBPostRepository(config.db.supabaseUrl, config.db.supabaseKey);
+    const postModels = new SBPostReadModel(config.db.supabaseUrl, config.db.supabaseKey);
     const moderationApi = new BadWordsModeration(config.moderation.replaceWith);
-    
-    // Create a new UnitOfWork instance with the retrieved PostRepository.
     const unitOfWork = new UnitOfWork(postRepository);
 
-    // Instantiate and return a new PostModule with the created UnitOfWork and PostModels.
-    return new PostModule(unitOfWork, postModels, moderationApi);
+    // Register commands
+    bus.registerCommand(CreatePostCommand.name, new CreatePostHandler(unitOfWork, moderationApi));
+    bus.registerCommand(DeletePostCommand.name, new DeletePostHandler(unitOfWork));
+
+    // Register events
+    bus.registerEvent(PostCreatedEvent.name, new CreatePostReadModelHandler(postModels));
+    bus.registerEvent(PostModeratedEvent.name, new PostModeratedHandler(postModels));
+    bus.registerEvent(PostDeletedEvent.name, new DeletePostReadModelHandler(postModels));
 }

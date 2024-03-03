@@ -7,11 +7,33 @@ import Command from "@/core/shared/application/Command";
  */
 export default class DeletePostCommand extends Command {
     /**
-     * Creates an instance of the DeletePostCommand class.
-     * @param {string} postId - The unique identifier for the post to be deleted.
-     * @param {string} sellerId - The unique identifier of the user initiating the deletion.
+     * The unique identifier of the post to be deleted.
+     *
+     * @public
+     * @readonly
+     * @type {string}
      */
-    constructor(public readonly postId: string, public sellerId: string) {
+    public readonly postId: string;
+
+    /**
+     * The unique identifier of the seller who owns the post to be deleted.
+     *
+     * @public
+     * @readonly
+     * @type {string}
+     */
+    public readonly sellerId: string;
+
+    /**
+     * Creates an instance of DeletePostCommand.
+     *
+     * @constructor
+     * @param {string} postId - The unique identifier of the post to be deleted.
+     * @param {string} sellerId - The unique identifier of the seller who owns the post to be deleted.
+     */
+    constructor(postId: string, sellerId: string) {
         super();
+        this.postId = postId;
+        this.sellerId = sellerId;
     }
 }

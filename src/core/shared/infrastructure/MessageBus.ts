@@ -3,6 +3,7 @@ import Command from "../application/Command";
 import CommandHandler from "../application/CommandHandler";
 import DomainEventHandler from "../application/DomainEventHandler";
 import AbstractMessageBus from "../application/AbstractMessageBus";
+import ChangeTracker from "../application/ChangeTracker";
 
 /**
  * Interface representing a mapping of command names to their corresponding handlers.
@@ -30,12 +31,20 @@ interface EventHandlerMap {
  */
 export default class MessageBus implements AbstractMessageBus {
     /**
+     * The message bus instance.
+     *
+     * @private
+     * @static
+     * @type {MessageBus}
+     */
+    private static instance: MessageBus;
+    /**
      * Mapping of command names to their corresponding handlers.
      * @private
      * @type {CommandHandlerMap}
      */
     private commandHandlers: CommandHandlerMap;
-    
+
     /**
      * Mapping of event names to arrays of event handlers.
      * @private
@@ -46,9 +55,26 @@ export default class MessageBus implements AbstractMessageBus {
     /**
      * Creates an instance of the MessageBus class.
      */
-    constructor() {
+    private constructor() {
         this.commandHandlers = {};
         this.eventHandlers = {};
+    }
+
+    /**
+     * Singleton instance of the MessageBus.
+     *
+     * @public
+     * @static
+     * @param {Function} initialSetup - The function to set up the initial state of the MessageBus instance.
+     * @returns {MessageBus}
+     */
+    public static getInstance(initialSetup: Function): MessageBus {
+        if (!MessageBus.instance) {
+            MessageBus.instance = new MessageBus();
+            initialSetup(MessageBus.instance);
+        }
+
+        return MessageBus.instance;
     }
 
     /**
@@ -59,21 +85,44 @@ export default class MessageBus implements AbstractMessageBus {
     public async execute(cmd: Command): Promise<void> {
         let handler = this.getCommandHandler(cmd.constructor.name);
 
-        if (!handler) {
+        if (!handler)
             throw new Error("No handler found");
-        }
 
         await handler.handle(cmd);
+        await this.handleNewEvents();
+    }
+
+    /**
+     * Handles any new events in the event queue.
+     *
+     * @private
+     * @returns {Promise<void>}
+     */
+    private async handleNewEvents(): Promise<void> {
+        let events = this.getNewEvents();
+
+        while (events.length > 0) {
+            let evt = events.at(0);
+
+            events = events.slice(1);
+
+            if (evt) await this.dispatch(evt);
+
+            events = events.concat(this.getNewEvents());
+        }
     }
 
     /**
      * Dispatches a domain event by invoking the handle method on all registered event handlers for the event type.
      * @param {DomainEvent} evt - The domain event to be dispatched.
+     * @returns {Promise<void>}
      */
     public async dispatch(evt: DomainEvent): Promise<void> {
         for (const handler of this.eventHandlers[evt.constructor.name] || []) {
             await handler.handle(evt);
         }
+
+        await this.handleNewEvents();
     }
 
     /**
@@ -106,5 +155,15 @@ export default class MessageBus implements AbstractMessageBus {
         }
 
         this.eventHandlers[name].push(handler);
+    }
+
+    /**
+     * Gets any new events from the change tracker.
+     *
+     * @private
+     * @returns {DomainEvent[]}
+     */
+    private getNewEvents(): DomainEvent[] {
+        return ChangeTracker.getNewEvents();
     }
 }

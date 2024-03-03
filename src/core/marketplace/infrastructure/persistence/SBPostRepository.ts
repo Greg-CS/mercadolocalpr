@@ -18,9 +18,10 @@ export default class SBPostRepository extends SupabaseClient implements PostRepo
     public async loadEvents(id: string): Promise<DomainEvent[]> {
         const supabase = this.getClient("marketplace");
 
-        let { data, error } = await supabase.from('post_events')
-                                            .select("postId, eventType, timestamp, data")
-                                            .eq("postId", id);
+        let { data } = await supabase.from('post_events')
+                                     .select("postId, eventType, timestamp, data")
+                                     .eq("postId", id);
+        
         let domainEvents: DomainEvent[] = [];
 
         data = data ? data : [];
@@ -44,15 +45,16 @@ export default class SBPostRepository extends SupabaseClient implements PostRepo
     public async save(post: Post): Promise<void> {
         const supabase = this.getClient('marketplace');
 
-        post.getEvents().forEach(async (e: DomainEvent) => {
+        for(const e of post.getEvents()) {
             const payload = {
                 postId: post.getId(),
+                postType: post.constructor.name,
                 eventType: e.constructor.name,
                 timestamp: e.timestamp,
                 data: e.toJson()
             };
 
-            const { error } = await supabase.from('post_events').insert(payload);
-        });
+            await supabase.from('post_events').insert(payload);
+        }
     }
 }

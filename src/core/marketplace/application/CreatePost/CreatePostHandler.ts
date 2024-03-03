@@ -1,8 +1,8 @@
 import CommandHandler from "@/core/shared/application/CommandHandler";
 import CreatePostCommand from "./CreatePostCommand";
 import Post from "@/core/marketplace/domain/Entities/Post";
-import UnitOfWork from "@/core/marketplace/application/UnitOfWork";
 import ModerationAPI from "../../domain/ModerationAPI";
+import UnitOfWork from "@/core/shared/application/UnitOfWork";
 
 /**
  * Command handler for processing the CreatePostCommand and creating a new post.
@@ -42,7 +42,7 @@ export default class CreatePostHandler extends CommandHandler {
      */
     public async handle(cmd: CreatePostCommand): Promise<void> {
         // Check if a post with the specified ID already exists
-        let existingPostEvents = await this.unitOfWork.posts.loadEvents(cmd.postId);
+        let existingPostEvents = await this.unitOfWork.repository.loadEvents(cmd.postId);
 
         if (existingPostEvents.length === 0) {
             // Create a new post entity using the provided data
@@ -62,6 +62,9 @@ export default class CreatePostHandler extends CommandHandler {
 
             // Save the new post entity using the unit of work
             await this.unitOfWork.save(post);
+            
+            // Commit changes
+            this.unitOfWork.commit();
         }
     }
 }
