@@ -27,7 +27,7 @@ export default class CreatePostReadModelHandler extends DomainEventHandler {
             evt.title,
             evt.description,
             Number(evt.price),
-            evt.location,
+            evt.locationId,
             evt.sellerId,
             evt.category,
             evt.photoUrl,

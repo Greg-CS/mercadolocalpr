@@ -20,21 +20,18 @@ export class PostId extends values.Id {
  */
 export class PostInfo extends values.ValueObject {
     private static MINIMUM_TITLE_LENGTH = 10;
-    private static MINIMUM_LOCATION_LENGTH = 10;
     private static MINIMUM_DESCRIPTION_LENGTH = 10;
 
     /**
      * Creates an instance of the PostInfo class.
      * @param {string} title - The title of the Post.
      * @param {string} photoUrl - The URL of the photo associated with the Post.
-     * @param {string} location - The location of the Post.
      * @param {string} description - The description of the Post.
-     * @throws {Error} - Throws an error if the title, location, or description length is below the minimum required.
+     * @throws {Error} - Throws an error if the title, or description length is below the minimum required.
      */
     constructor(
         public readonly title: string,
         public readonly photoUrl: string,
-        public readonly location: string,
         public readonly description: string,
     ) {
         super();
@@ -43,16 +40,11 @@ export class PostInfo extends values.ValueObject {
             throw new Error(`Title must have at least ${PostInfo.MINIMUM_TITLE_LENGTH} characters.`);
         }
 
-        if (location.length < PostInfo.MINIMUM_LOCATION_LENGTH) {
-            throw new Error(`Location must have at least ${PostInfo.MINIMUM_LOCATION_LENGTH} characters.`);
-        }
-
         if (description.length < PostInfo.MINIMUM_DESCRIPTION_LENGTH) {
             throw new Error(`Description must have at least ${PostInfo.MINIMUM_DESCRIPTION_LENGTH} characters.`);
         }
 
         this.title = title;
-        this.location = location;
         this.photoUrl = photoUrl;
         this.description = description;
     }
@@ -114,5 +106,17 @@ export class SellerId extends values.Id {
      */
     public equals(other: SellerId): boolean {
         return this.id === other.id;
+    }
+}
+
+
+
+export class LocationId extends values.Id {
+    /**
+     * Creates an instance of the SellerId class.
+     * @param {string} id - The unique identifier for the User.
+     */
+    constructor(public readonly id: string) {
+        super();
     }
 }

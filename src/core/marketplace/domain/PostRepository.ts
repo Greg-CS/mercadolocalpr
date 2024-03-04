@@ -1,4 +1,4 @@
-import Post from "./Entities/Post";
+import Post from "./Entities/Post/Post";
 import DomainEvent from "@/core/shared/domain/DomainEvent";
 
 /**

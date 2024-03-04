@@ -1,6 +1,6 @@
 import CommandHandler from "@/core/shared/application/CommandHandler";
 import CreatePostCommand from "./CreatePostCommand";
-import Post from "@/core/marketplace/domain/Entities/Post";
+import Post from "@/core/marketplace/domain/Entities/Post/Post";
 import ModerationAPI from "../../domain/ModerationAPI";
 import UnitOfWork from "@/core/shared/application/UnitOfWork";
 
@@ -51,7 +51,7 @@ export default class CreatePostHandler extends CommandHandler {
                 cmd.title,
                 cmd.description,
                 cmd.price,
-                cmd.location,
+                cmd.locationId,
                 cmd.sellerId,
                 cmd.category,
                 cmd.photoUrl,

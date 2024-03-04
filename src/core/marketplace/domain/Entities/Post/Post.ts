@@ -1,9 +1,9 @@
-import * as values from "../Values";
-import * as events from "../Events";
+import * as values from "../../Values";
+import * as events from "../../Events";
 
 import { AggregateRoot } from "@/core/shared/domain/Entity";
 import DomainEvent from "@/core/shared/domain/DomainEvent";
-import ModerationAPI from "../ModerationAPI";
+import ModerationAPI from "../../ModerationAPI";
 
 /**
  * State class representing the current state of a Post aggregate.
@@ -26,9 +26,17 @@ class PostState {
     public isModerated: boolean;
 
     /**
+     * The location id of the post
+     *
+     * @public
+     * @type {?values.LocationId}
+     */
+    public locationId?: values.LocationId;
+
+    /**
      * Creates an instance of the PostState class.
      * @param {values.PostId} id - The unique identifier of the post.
-     * @param {values.PostInfo} postInfo - Information about the post (title, photoUrl, location, description).
+     * @param {values.PostInfo} postInfo - Information about the post (title, photoUrl, location id, description).
      * @param {values.PostPrice} price - The price of the post.
      * @param {values.SellerId} sellerId - The unique identifier of the user who created the post.
      * @param {values.PostCategoryId} category - The category of the post.
@@ -65,10 +73,11 @@ class PostState {
      */
     private applyPostCreatedEvent(event: events.PostCreatedEvent) {
         this.id = new values.PostId(event.id);
-        this.postInfo = new values.PostInfo(event.title, event.photoUrl, event.location, event.description);
+        this.postInfo = new values.PostInfo(event.title, event.photoUrl, event.description);
         this.price = new values.PostPrice(event.price);
         this.sellerId = new values.SellerId(event.sellerId);
         this.category = new values.PostCategoryId(event.category);
+        this.locationId = new values.LocationId(event.locationId);
         this.isModerated = false;
         this.isDeleted = false;
     }
@@ -91,7 +100,6 @@ class PostState {
         this.postInfo = new values.PostInfo(
             event.moderatedTitle,
             this.postInfo!.photoUrl,
-            this.postInfo!.location,
             event.moderatedDescription
         );
     }
@@ -184,13 +192,13 @@ export default class Post extends AggregateRoot {
      * @param {string} title - The title of the post.
      * @param {string} description - The description of the post.
      * @param {string} price - The price of the post.
-     * @param {string} location - The location of the post.
+     * @param {string} locationId - The location id of the post.
      * @param {string} sellerId - The unique identifier of the user creating the post.
      * @param {string} category - The category of the post.
      * @param {string} photoUrl - The URL of the photo associated with the post.
      * @returns {Post} - The newly created Post instance.
      */
-    public static create(id: string, title: string, description: string, price: string, location: string, sellerId: string, category: string, photoUrl: string): Post {
+    public static create(id: string, title: string, description: string, price: string, locationId: string, sellerId: string, category: string, photoUrl: string): Post {
         let post = new Post();
         
         let event = new events.PostCreatedEvent(
@@ -198,7 +206,7 @@ export default class Post extends AggregateRoot {
             title,
             description,
             price,
-            location,
+            locationId,
             sellerId,
             category,
             photoUrl

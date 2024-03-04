@@ -26,9 +26,9 @@ export class PostCreatedEvent extends DomainEvent {
     public readonly price: string;
 
     /**
-     * @type {string} - The location of the post.
+     * @type {string} - The location id of the post.
      */
-    public readonly location: string;
+    public readonly locationId: string;
 
     /**
      * @type {string} - The unique identifier of the user who created the post.
@@ -51,19 +51,19 @@ export class PostCreatedEvent extends DomainEvent {
      * @param {string} title - The title of the post.
      * @param {string} description - The description of the post.
      * @param {string} price - The price of the post.
-     * @param {string} location - The location of the post.
+     * @param {string} locationId - The location id of the post.
      * @param {string} sellerId - The unique identifier of the user who created the post.
      * @param {string} category - The category of the post.
      * @param {string} photoUrl - The URL of the photo associated with the post.
      * @param {string} timestamp - The timestamp of the event.
      */
-    constructor(id: string, title: string, description: string, price: string, location: string, sellerId: string, category: string, photoUrl: string, timestamp?: string) {
+    constructor(id: string, title: string, description: string, price: string, locationId: string, sellerId: string, category: string, photoUrl: string, timestamp?: string) {
         super(timestamp);
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
-        this.location = location;
+        this.locationId = locationId;
         this.sellerId = sellerId;
         this.category = category;
         this.photoUrl = photoUrl;
@@ -79,7 +79,7 @@ export class PostCreatedEvent extends DomainEvent {
             title: this.title,
             description: this.description,
             price: this.price,
-            location: this.location,
+            locationId: this.locationId,
             sellerId: this.sellerId,
             category: this.category,
             photoUrl: this.photoUrl,
@@ -99,7 +99,7 @@ export class PostCreatedEvent extends DomainEvent {
             data.title,
             data.description,
             data.price,
-            data.location,
+            data.locationId,
             data.sellerId,
             data.category,
             data.photoUrl,

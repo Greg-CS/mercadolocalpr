@@ -23,9 +23,9 @@ export default class PostModel {
     public price: number;
 
     /**
-     * @type {string} - The location of the post.
+     * @type {string} - The location id of the post.
      */
-    public location: string;
+    public locationId: string;
 
     /**
      * @type {string} - The unique identifier of the user who created the post.
@@ -58,7 +58,7 @@ export default class PostModel {
      * @param {string} title - The title of the post.
      * @param {string} description - The description of the post.
      * @param {number} price - The price of the post.
-     * @param {string} location - The location of the post.
+     * @param {string} locationId - The location id of the post.
      * @param {string} sellerId - The unique identifier of the user who created the post.
      * @param {string} category - The category of the post.
      * @param {string} photoUrl - The URL of the photo associated with the post.
@@ -70,7 +70,7 @@ export default class PostModel {
         title: string,
         description: string,
         price: number,
-        location: string,
+        locationId: string,
         sellerId: string,
         category: string,
         photoUrl: string,
@@ -81,7 +81,7 @@ export default class PostModel {
         this.title = title;
         this.description = description;
         this.price = price;
-        this.location = location;
+        this.locationId = locationId;
         this.sellerId = sellerId;
         this.category = category;
         this.photoUrl = photoUrl;
