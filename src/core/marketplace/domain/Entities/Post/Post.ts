@@ -39,14 +39,14 @@ class PostState {
      * @param {values.PostInfo} postInfo - Information about the post (title, photoUrl, location id, description).
      * @param {values.PostPrice} price - The price of the post.
      * @param {values.SellerId} sellerId - The unique identifier of the user who created the post.
-     * @param {values.PostCategoryId} category - The category of the post.
+     * @param {values.PostCategoryId} categoryId - The category id of the post.
      */
     public constructor(
         public id?: values.PostId,
         public postInfo?: values.PostInfo,
         public price?: values.PostPrice,
         public sellerId?: values.SellerId,
-        public category?: values.PostCategoryId,
+        public categoryId?: values.PostCategoryId,
     ) {
         this.isDeleted = false;
         this.isModerated = false;
@@ -76,7 +76,7 @@ class PostState {
         this.postInfo = new values.PostInfo(event.title, event.photoUrl, event.description);
         this.price = new values.PostPrice(event.price);
         this.sellerId = new values.SellerId(event.sellerId);
-        this.category = new values.PostCategoryId(event.category);
+        this.categoryId = new values.PostCategoryId(event.categoryId);
         this.locationId = new values.LocationId(event.locationId);
         this.isModerated = false;
         this.isDeleted = false;
@@ -194,11 +194,11 @@ export default class Post extends AggregateRoot {
      * @param {string} price - The price of the post.
      * @param {string} locationId - The location id of the post.
      * @param {string} sellerId - The unique identifier of the user creating the post.
-     * @param {string} category - The category of the post.
+     * @param {string} categoryId - The category id of the post.
      * @param {string} photoUrl - The URL of the photo associated with the post.
      * @returns {Post} - The newly created Post instance.
      */
-    public static create(id: string, title: string, description: string, price: string, locationId: string, sellerId: string, category: string, photoUrl: string): Post {
+    public static create(id: string, title: string, description: string, price: string, locationId: string, sellerId: string, categoryId: string, photoUrl: string): Post {
         let post = new Post();
         
         let event = new events.PostCreatedEvent(
@@ -208,7 +208,7 @@ export default class Post extends AggregateRoot {
             price,
             locationId,
             sellerId,
-            category,
+            categoryId,
             photoUrl
         );
 

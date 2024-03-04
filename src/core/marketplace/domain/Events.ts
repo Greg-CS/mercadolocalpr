@@ -36,9 +36,9 @@ export class PostCreatedEvent extends DomainEvent {
     public readonly sellerId: string;
 
     /**
-     * @type {string} - The category of the post.
+     * @type {string} - The category id of the post.
      */
-    public readonly category: string;
+    public readonly categoryId: string;
 
     /**
      * @type {string} - The URL of the photo associated with the post.
@@ -53,11 +53,11 @@ export class PostCreatedEvent extends DomainEvent {
      * @param {string} price - The price of the post.
      * @param {string} locationId - The location id of the post.
      * @param {string} sellerId - The unique identifier of the user who created the post.
-     * @param {string} category - The category of the post.
+     * @param {string} categoryId - The category id of the post.
      * @param {string} photoUrl - The URL of the photo associated with the post.
      * @param {string} timestamp - The timestamp of the event.
      */
-    constructor(id: string, title: string, description: string, price: string, locationId: string, sellerId: string, category: string, photoUrl: string, timestamp?: string) {
+    constructor(id: string, title: string, description: string, price: string, locationId: string, sellerId: string, categoryId: string, photoUrl: string, timestamp?: string) {
         super(timestamp);
         this.id = id;
         this.title = title;
@@ -65,7 +65,7 @@ export class PostCreatedEvent extends DomainEvent {
         this.price = price;
         this.locationId = locationId;
         this.sellerId = sellerId;
-        this.category = category;
+        this.categoryId = categoryId;
         this.photoUrl = photoUrl;
     }
 
@@ -81,7 +81,7 @@ export class PostCreatedEvent extends DomainEvent {
             price: this.price,
             locationId: this.locationId,
             sellerId: this.sellerId,
-            category: this.category,
+            categoryId: this.categoryId,
             photoUrl: this.photoUrl,
         });
     }
@@ -101,7 +101,7 @@ export class PostCreatedEvent extends DomainEvent {
             data.price,
             data.locationId,
             data.sellerId,
-            data.category,
+            data.categoryId,
             data.photoUrl,
             obj.timestamp,
         );
