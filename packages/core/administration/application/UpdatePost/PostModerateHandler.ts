@@ -1,6 +1,6 @@
 import DomainEventHandler from "../../../shared/application/DomainEventHandler";
 import { PostModeratedEvent } from "../../domain/Events";
-import PostReadModelStore from "../../domain/PostReadModelStore";
+import PostReadModelStore from "../../domain/PostReadModelAdmins";
 
 
 export default class PostModeratedHandler extends DomainEventHandler {

@@ -1,6 +1,6 @@
 import DomainEventHandler from "../../../shared/application/DomainEventHandler";
 import { PostDeletedEvent } from "../../domain/Events";
-import PostReadModelStore from "../../domain/PostReadModelStore";
+import PostReadModelStore from "../../domain/PostReadModelAdmins";
 
 /**
  * Domain event handler for processing the PostDeletedEvent and updating the post read model.

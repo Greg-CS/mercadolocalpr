@@ -8,7 +8,7 @@ interface Props {
 export function LogoutButton({sidePanelStyle, children}: Props): JSX.Element{
   return (
     <div className={sidePanelStyle}>
-      {children}
+      {children || null}
       <form action="/auth/signout" method="post">
         <button
           className={sidePanelStyle}

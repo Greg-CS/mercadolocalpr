@@ -1,12 +1,6 @@
-## Using this example
-
 Run the following command:
 
 ```sh
-npx create-turbo@latest -e with-tailwind
-
-# or
-
 turbo dev --filter admin
 ```
 
@@ -27,9 +21,8 @@ This Turborepo includes the following packages/apps:
 ### Apps and Packages
 
 - `admin`: an app to handle our backend side of things
-- `docs`: a place were we document our code
 - `web`: another app for the frontend side of things
-- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` , `docs` & `admin` applications
+- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` & `admin` applications
 - `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 

@@ -7,37 +7,36 @@ import Link from "next/link";
 import type { Database } from "../../../../database.types";
 import { Spinner } from "../Spinner/spinner";
 type PostTable = Database["public"]["Tables"]["posts"]["Row"];
+type CategoryTable = Database["public"]["Tables"]["categories"]["Row"];
 
 export function UserPosts ({ catID }: { catID: number }) {
+
   const supabase = createClientComponentClient<Database>();
   const [posts, setPosts] = useState<PostTable[] | null>(null);
-  const [category, setCategory] = useState<PostTable[] | null>(null);
-
+  const [category, setCategory] = useState<CategoryTable[] | null>(null);
+  
   useEffect(() => {
     const getData = async () => {
       const { data } = await supabase.from("posts").select("*");
       setPosts(data);
-      return data;
     };
-    void getData();
+    getData();
   }, []);
 
-  useEffect(() => {
-    const getCategory = async () => {
-      // Perform a query to get posts based on the category name
-      const { data } = await supabase
-        .from("posts")
-        .select(
-          "id, title, price, location, created_at, description, category, photo_url, user_id, categories (id, category_name)",
-        );
+  // useEffect(() => {
+  //   const getCategory = async () => {
+  //     // Perform a query to get posts based on the category name
+  //     const { data } = await supabase.from("categories").select("*");
+  //     setCategory(data);
+  //   };
+  //   getCategory();
+  // }, []);
 
-      setCategory(data);
-      return data;
-    };
-    void getCategory();
-  }, []);
-
-  if (!posts) return <Spinner />;
+  if (!posts) return (
+  <div className="flex items-center justify-center">
+    <Spinner />
+  </div>
+  );
 
   return (
     <div className="overflow-x-auto p-10">
@@ -55,8 +54,7 @@ export function UserPosts ({ catID }: { catID: number }) {
           </tr>
         </thead> 
         <tbody> 
-          {/* ?.filter((post) => post.category === catID) */}
-          {category?.map((post: PostTable) => (
+          {posts?.filter((post) => post.category === catID).map((post: PostTable) => (
             <tr key={post.id}>
               <th></th>
               {/* <Link href={`/UserPost/${post.id}`} className="flex"> */}
@@ -70,8 +68,8 @@ export function UserPosts ({ catID }: { catID: number }) {
                 />
               </td>
               <td>{post.title || "No Title"}</td>
-              <td>{post.price}</td>
-              <td>{post.location}</td>
+              <td>{post.price || "No Price"}</td>
+              <td>{post.location || "No Location"}</td>
               <td>{post.created_at}</td>
               <td>{post.description}</td>
               <td>{post.category}</td>

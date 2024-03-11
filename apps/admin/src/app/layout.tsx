@@ -5,7 +5,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import type { Database } from "../../database.types";
 import { SidePanel } from "./components/SidePanel/side-panel";
-import { Navbar } from "./components/Navbar/navbar";
+import { Navbar } from "./components/Navbar/Navbar";
 import { createClient } from "../../utils/server";
 import { LoginForm } from "./components/Form/login-form";
 import { toast, ToastContainer } from "react-toastify";
@@ -60,7 +60,7 @@ export default async function RootLayout({
         <Navbar/>
         <div className="flex">
           <SidePanel/>
-          <div className="bg-[#3C3C3C] border-[#344E41] rounded-tl-2xl border-2 w-10/12">
+          <div className="bg-[#3C3C3C] border-[#344E41] rounded-tl-2xl border-2 w-[100%] lg:w-10/12">
             {children}
           </div>
         </div>
