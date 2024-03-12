@@ -1,14 +1,14 @@
 import DomainEventHandler from "../../../shared/application/DomainEventHandler";
 import { PostModeratedEvent } from "../../domain/Events";
-import PostReadModelAdmin from "../../domain/PostReadModelAdmins";
+import PostReadModelStore from "../../domain/PostReadModelAdmins";
 
 
-export default class PostModeratedHandler extends DomainEventHandler {
+export default class AddModeratedHandler extends DomainEventHandler {
     /**
      * Creates an instance of the PostModeratedHandler class.
      * @param {PostReadModelStore} postReadModelStore - The store for the post read model.
      */
-    constructor(private postReadModelStore: PostReadModelAdmin) {
+    constructor(private postReadModelStore: PostReadModelStore) {
         super();
     }
 
