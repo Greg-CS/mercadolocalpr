@@ -1,7 +1,7 @@
 import { Card } from "@repo/ui/card";
 import { LineCharts } from "./components/Charts/line-chart";
 import { Piechart } from "./components/Charts/pie-chart";
-import { BarChartComp } from "./components/Charts/bar-chart";
+// import { BarChartComp } from "./components/Charts/bar-chart";
 import { RadarCharts } from "./components/Charts/radar-chart";
 import { RadialChart } from "./components/Charts/radial-chart";
 export default function Page(): JSX.Element {
