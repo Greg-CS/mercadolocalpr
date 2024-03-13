@@ -1,5 +1,5 @@
 import CommandHandler from "../../../shared/application/CommandHandler";
-import DeletePostCommand from "./DeletePostCommand";
+import DeleteAddCommand from "./DeleteAddCommand";
 import Post from "../../domain/Entities/Post";
 import PostNotFoundError from "../../domain/Exceptions/PostNotFoundError";
 import UnitOfWork from "../../../shared/application/UnitOfWork";
@@ -9,7 +9,7 @@ import { SellerId } from "../../domain/Values";
  * Command handler for processing the DeletePostCommand and deleting a post.
  * It extends the base CommandHandler class.
  */
-export class DeletePostHandler extends CommandHandler {
+export class DeleteAddHandler extends CommandHandler {
     /**
      * Creates an instance of the DeletePostHandler class.
      * @param {UnitOfWork} unitOfWork - The unit of work for managing transactions.
@@ -24,9 +24,9 @@ export class DeletePostHandler extends CommandHandler {
      * @param {DeletePostCommand} cmd - The DeletePostCommand to be handled.
      * @throws {PostNotFoundError} - Throws an error if the post with the specified ID is not found.
      */
-    public async handle(cmd: DeletePostCommand): Promise<void> {
+    public async handle(cmd: DeleteAddCommand): Promise<void> {
         // Load events for the specified post ID
-        let events = await this.unitOfWork.posts.loadEvents(cmd.postId);
+        let events = await this.unitOfWork.posts.loadEvents(cmd.addId);
 
         // If no events are found, the post does not exist
         if (events.length === 0) throw new PostNotFoundError();

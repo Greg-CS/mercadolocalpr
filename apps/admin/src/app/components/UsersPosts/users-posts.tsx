@@ -51,6 +51,7 @@ export function UserPosts ({ catID }: { catID: number }) {
             <th>created_at</th> 
             <th>Description</th>
             <th>Category</th>
+            <th>View</th>
           </tr>
         </thead> 
         <tbody> 
@@ -73,7 +74,11 @@ export function UserPosts ({ catID }: { catID: number }) {
               <td>{post.created_at}</td>
               <td>{post.description}</td>
               <td>{post.category}</td>
-              {/* </Link> */}
+              <td>
+                <Link href={`/UserPost/${post.id}`}>
+                  View
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody> 
@@ -87,6 +92,7 @@ export function UserPosts ({ catID }: { catID: number }) {
             <th>created_at</th> 
             <th>Description</th>
             <th>Category</th>
+            <th>View</th>
           </tr>
         </tfoot>
       </table>

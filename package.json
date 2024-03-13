@@ -29,6 +29,7 @@
     "framer-motion": "^11.0.6",
     "react-toastify": "^10.0.4",
     "recharts": "^2.12.2",
+    "theme-change": "^2.5.0",
     "watchpack": "^2.4.0"
   }
 }
