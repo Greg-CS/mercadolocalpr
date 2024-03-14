@@ -19,6 +19,7 @@ export function UserPosts ({ catID }: { catID: number }) {
     const getData = async () => {
       const { data } = await supabase.from("posts").select("*");
       setPosts(data);
+      console.log(data)
     };
     getData();
   }, []);
@@ -44,6 +45,7 @@ export function UserPosts ({ catID }: { catID: number }) {
         <thead>
           <tr>
             <th></th> 
+            <th>id</th>
             <th>Image</th> 
             <th>Title</th> 
             <th>Price</th> 
@@ -58,7 +60,7 @@ export function UserPosts ({ catID }: { catID: number }) {
           {posts?.filter((post) => post.category === catID).map((post: PostTable) => (
             <tr key={post.id}>
               <th></th>
-              {/* <Link href={`/UserPost/${post.id}`} className="flex"> */}
+              <th>{post.id}</th>
               <td>
                 <Image
                   className="object-cover w-full border-2 rounded-md border-[#A1B5D8] hover:border-[#3A4F41] transition-all"
@@ -85,6 +87,7 @@ export function UserPosts ({ catID }: { catID: number }) {
         <tfoot>
           <tr>
             <th></th> 
+            <th>id</th>
             <th>Image</th> 
             <th>Title</th> 
             <th>Price</th> 

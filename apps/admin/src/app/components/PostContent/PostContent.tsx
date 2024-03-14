@@ -15,6 +15,7 @@ export const PostContent = ({ id }: { id: number }) => {
         .select("*")
         .eq("id", id);
       setPostState(posts);
+      console.log(posts)
     };
 
     getData();
