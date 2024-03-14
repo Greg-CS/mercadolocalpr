@@ -1,7 +1,7 @@
+import DomainEventHandler from "@/core/shared/application/DomainEventHandler";
 import { PostCreatedEvent } from "../../domain/Events";
 import PostReadModelStore from "../../domain/PostReadModelStore";
 import PostModel from "../../domain/Models/PostModel";
-import DomainEventHandler from "../../../shared/application/DomainEventHandler";
 
 /**
  * Domain event handler for processing the PostCreatedEvent and updating the post read model.
@@ -22,15 +22,14 @@ export default class CreatePostReadModelHandler extends DomainEventHandler {
      */
     public async handle(evt: PostCreatedEvent): Promise<void> {
         // Create a new post read model using the data from the event
-        
         let model = new PostModel(
             evt.id,
             evt.title,
             evt.description,
             Number(evt.price),
-            evt.locationId,
+            evt.location,
             evt.sellerId,
-            evt.categoryId,
+            evt.category,
             evt.photoUrl,
             false,  // not moderated
             evt.timestamp

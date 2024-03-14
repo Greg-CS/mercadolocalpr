@@ -1,14 +1,8 @@
 {
-  "name": "@repo/mercadolocalpr-core",
+  "name": "mercadolocalpr-core",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "exports": {
-    "./administration/DeleteAdd": "./administration/DeleteAdd",
-    "./administration/CreateAdd": "",
-    "./administration/UpdateAdd": "",
-    "./DeletePost": "./administration/application/DeletePost/DeletePostCommand.ts"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

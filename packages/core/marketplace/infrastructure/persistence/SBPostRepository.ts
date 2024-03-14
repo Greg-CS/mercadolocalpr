@@ -1,8 +1,8 @@
-import PostRepository from "../../domain/PostRepository";
-import Post from "../../domain/Entities/Post";
-import DomainEvent from "@/core/shared/domain/DomainEvent";
-import { SupabaseClient } from "@/core/shared/infrastructure/persistence/supabase";
+import PostRepository from "../../domain/Repositories/PostRepository";
+import Post from "../../domain/Entities/Post/Post";
 import * as events from "../../domain/Events";
+import DomainEvent from "../../../shared/domain/DomainEvent";
+import { SupabaseClient } from "../../../shared/infrastructure/persistence/supabase";
 
 /**
  * Supabase-backed implementation of the PostRepository interface.
@@ -18,7 +18,7 @@ export default class SBPostRepository extends SupabaseClient implements PostRepo
     public async loadEvents(id: string): Promise<DomainEvent[]> {
         const supabase = this.getClient("marketplace");
 
-        let { data } = await supabase.from('post_events')
+        let { data } = await supabase.from('posts_events')
                                      .select("postId, eventType, timestamp, data")
                                      .eq("postId", id);
         
@@ -54,7 +54,7 @@ export default class SBPostRepository extends SupabaseClient implements PostRepo
                 data: e.toJson()
             };
 
-            await supabase.from('post_events').insert(payload);
+            await supabase.from('posts_events').insert(payload);
         }
     }
 }

@@ -1,6 +1,5 @@
 "use client"
 import { PostContent } from "../../components/PostContent/PostContent";
-import DeletePost from "@repo/mercadolocalpr-core/DeletePost";
 
 export default function Page({ params }: { params: { id: number } }): React.JSX.Element {
 
@@ -16,7 +15,7 @@ export default function Page({ params }: { params: { id: number } }): React.JSX.
             <button className="btn btn-square w-4/12 bg-green-500 text-white">
                 Approve
             </button>
-            <button onClick={() => new DeletePost(postId.toString(), '1')} className="btn btn-square w-4/12 bg-red-500 text-white">
+            <button onClick={() => console.log("lol")} className="btn btn-square w-4/12 bg-red-500 text-white">
                 Delete
             </button>
         </div>

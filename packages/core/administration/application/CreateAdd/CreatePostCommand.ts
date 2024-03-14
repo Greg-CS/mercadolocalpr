@@ -1,4 +1,4 @@
-import Command from "../../../shared/application/Command";
+import Command from "@/core/shared/application/Command";
 
 /**
  * Command class representing the intention to create a new post in the application.
@@ -43,13 +43,13 @@ export default class CreatePostCommand extends Command {
     public readonly price: string;
 
     /**
-     * The location or region id associated with the post.
+     * The location or region associated with the post.
      *
      * @public
      * @readonly
      * @type {string}
      */
-    public readonly locationId: string;
+    public readonly location: string;
 
     /**
      * The unique identifier of the seller creating the post.
@@ -61,13 +61,13 @@ export default class CreatePostCommand extends Command {
     public readonly sellerId: string;
 
     /**
-     * The category or type id of the item being posted.
+     * The category or type of the item being posted.
      *
      * @public
      * @readonly
      * @type {string}
      */
-    public readonly categoryId: string;
+    public readonly category: string;
 
     /**
      * The URL of the photo associated with the post.
@@ -86,9 +86,9 @@ export default class CreatePostCommand extends Command {
      * @param {string} title - The title of the post.
      * @param {string} description - The description of the post.
      * @param {string} price - The price of the item being sold in the post.
-     * @param {string} locationId - The location or region id associated with the post.
+     * @param {string} location - The location or region associated with the post.
      * @param {string} sellerId - The unique identifier of the seller creating the post.
-     * @param {string} categoryId - The category or type id of the item being posted.
+     * @param {string} category - The category or type of the item being posted.
      * @param {string} photoUrl - The URL of the photo associated with the post.
      */
     constructor(
@@ -96,9 +96,9 @@ export default class CreatePostCommand extends Command {
         title: string,
         description: string,
         price: string,
-        locationId: string,
+        location: string,
         sellerId: string,
-        categoryId: string,
+        category: string,
         photoUrl: string
     ) {
         super();
@@ -106,9 +106,9 @@ export default class CreatePostCommand extends Command {
         this.title = title;
         this.description = description;
         this.price = price;
-        this.locationId = locationId;
+        this.location = location;
         this.sellerId = sellerId;
-        this.categoryId = categoryId;
+        this.category = category;
         this.photoUrl = photoUrl;
     }
 }
