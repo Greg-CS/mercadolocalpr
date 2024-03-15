@@ -51,6 +51,11 @@ export default class PostModel {
      * @type {string} - The timestamp when the post was created.
      */
     public createdAt: string;
+    
+    /**
+     * @type {boolean} - Flag indictating if the post was approved.
+     */
+    public isApproved: boolean;
 
     /**
      * Creates an instance of the PostModel.
@@ -64,6 +69,7 @@ export default class PostModel {
      * @param {string} photoUrl - The URL of the photo associated with the post.
      * @param {boolean} isModerated - Flag indictating if the post was moderated.
      * @param {string} createdAt - The timestamp when the post was created.
+     * @param {boolean} isApproved - Flag indictating if the post was approved.
      */
     constructor(
         id: string,
@@ -76,6 +82,7 @@ export default class PostModel {
         photoUrl: string,
         isModerated: boolean,
         createdAt: string,
+        isApproved: boolean
     ) {
         this.id = id;
         this.title = title;
@@ -87,5 +94,6 @@ export default class PostModel {
         this.photoUrl = photoUrl;
         this.isModerated = isModerated;
         this.createdAt = createdAt;
+        this.isApproved = isApproved;
     }
 }

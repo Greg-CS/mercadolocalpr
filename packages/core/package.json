@@ -1,8 +1,16 @@
 {
-  "name": "mercadolocalpr-core",
+  "name": "@repo/mercadolocalpr-core",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "exports": {
+    "./DeleteAddReadModelHandler": "./administration/application/DeleteAdd/DeleteAddReadModelHandler.ts",
+    "./AddReadModelAdmins": "./administration/domain/AddReadModelAdmins.ts",
+    "./AddDeletedEvent": "./administration/domain/Events.ts",
+    "./ApprovePostReadModelHandler": "./administration/application/ApprovePost/ApprovePostReadModelHandler.ts",
+    "./ApprovePostHandler": "./administration/application/ApprovePost/ApprovePostHandler.ts",
+    "./DeletePost": "./administration/application/DeletePost/DeletePostCommand.ts"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

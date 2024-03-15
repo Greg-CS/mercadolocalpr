@@ -1,14 +1,14 @@
 import DomainEventHandler from "../../../shared/application/DomainEventHandler";
-import { PostModeratedEvent } from "../../domain/Events";
-import PostReadModelStore from "../../domain/AddReadModelAdmins";
+import { AddModeratedEvent } from "../../domain/Events";
+import AddReadModelAdmins from "../../domain/AddReadModelAdmins";
 
 
 export default class AddModeratedHandler extends DomainEventHandler {
     /**
      * Creates an instance of the PostModeratedHandler class.
-     * @param {PostReadModelStore} postReadModelStore - The store for the post read model.
+     * @param {AddReadModelAdmins} addReadModelAdmins - The store for the post read model.
      */
-    constructor(private postReadModelStore: PostReadModelStore) {
+    constructor(private addReadModelAdmins: AddReadModelAdmins) {
         super();
     }
 
@@ -16,15 +16,15 @@ export default class AddModeratedHandler extends DomainEventHandler {
      * Handles the PostCreatedEvent by creating a new post read model and adding it to the store.
      * @param {PostCreatedEvent} evt - The PostCreatedEvent to be handled.
      */
-    public async handle(evt: PostModeratedEvent): Promise<void> {
-        let model = await this.postReadModelStore.get(evt.postId);
+    public async handle(evt: AddModeratedEvent): Promise<void> {
+        let model = await this.addReadModelAdmins.get(evt.addId);
 
         if(model) {
             model.isModerated = true;
             model.title = evt.moderatedTitle;
             model.description = evt.moderatedDescription;
     
-            await this.postReadModelStore.update(model);        
+            await this.addReadModelAdmins.update(model);        
         }
         
     }

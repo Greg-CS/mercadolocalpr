@@ -196,3 +196,52 @@ export class AddModeratedEvent extends DomainEvent {
         );
     }
 }
+
+export class ApprovePostEvent extends DomainEvent {
+        /** The unique identifier of the post. */
+    public readonly postId: string;
+
+    /** The moderated description of the post. */
+    public readonly isApproved: boolean;
+
+    /**
+     * Creates an instance of the PostModeratedEvent.
+     * @param {string} postId - The unique identifier of the post.
+     * @param {string} isApproved - The moderated title of the post.
+     * @param {string} timestamp - The timestamp of the event.
+     */
+
+    constructor(
+        postId: string,
+        isApproved: boolean,
+        timestamp?: string
+    ) {
+        super(timestamp);
+        this.postId = postId;
+        this.isApproved = isApproved;
+    }
+
+    /**
+     *  converts the event to a JSON-formatted string.
+     *  @returns {string} - The JSON-formatted string representing the event.
+     */
+    public toJson(): string {
+        return JSON.stringify({
+            addId: this.postId,
+            isApprovedf: this.isApproved,
+        });
+    }
+
+    /**
+     * Creates a AddModeratedEvent instance from a JSON object.
+     * @param {any} obj - The JSON object containing event data.
+     * @returns {AddModeratedEvent} - The created AddModeratedEvent instance.
+     */
+    public static fromJson(obj: any): ApprovePostEvent {
+        return new ApprovePostEvent(
+            obj.postId,
+            obj.isApproved,
+            obj.timestamp
+        );
+    }
+}
