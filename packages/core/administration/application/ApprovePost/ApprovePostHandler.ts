@@ -2,7 +2,7 @@ import DomainEventHandler from "../../../shared/application/DomainEventHandler";
 import { ApprovePostEvent } from "../../domain/Events";
 import PostReadModelStore from "../../../marketplace/domain/PostReadModelStore";
 
-export default class approvePostHandler extends DomainEventHandler {
+export default class ApprovePostHandler extends DomainEventHandler {
     /**
      * Creates an instance of the PostModeratedHandler class.
      * @param {PostReadModelStore} postReadModelStore - The store for the post read model.
