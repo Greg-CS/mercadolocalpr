@@ -5,11 +5,12 @@
   "main": "index.js",
   "exports": {
     "./DeleteAddReadModelHandler": "./administration/application/DeleteAdd/DeleteAddReadModelHandler.ts",
+    "./DeletePostHandler": "./marketplace/application/DeletePost/DeletePostHandler.ts",
     "./AddReadModelAdmins": "./administration/domain/AddReadModelAdmins.ts",
     "./AddDeletedEvent": "./administration/domain/Events.ts",
-    "./ApprovePostReadModelHandler": "./administration/application/ApprovePost/ApprovePostReadModelHandler.ts",
+    "./AddModerateHandler": "./administration/application/UpdateAdd/AddModerateHandler.ts",
     "./ApprovePostHandler": "./administration/application/ApprovePost/ApprovePostHandler.ts",
-    "./DeletePost": "./administration/application/DeletePost/DeletePostCommand.ts"
+    "./UpdatePostHandler": "./marketplace/application/UpdatePost/UpdatePostHandler.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

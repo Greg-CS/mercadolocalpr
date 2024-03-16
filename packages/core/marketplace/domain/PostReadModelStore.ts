@@ -30,5 +30,5 @@ export default interface PostReadModelStore {
      * @param {string} postId - The unique identifier of the Post read model to be deleted.
      * @returns {Promise<void>} - A promise that resolves once the update operation is complete.
      */
-    update(post: PostModel): Promise<void>;
+    update(postId: PostModel): Promise<void>;
 }

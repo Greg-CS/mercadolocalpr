@@ -8,7 +8,6 @@ export function SidePanel(): JSX.Element {
 
   const toggle = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   }
 
 

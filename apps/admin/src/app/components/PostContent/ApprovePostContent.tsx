@@ -1,7 +1,8 @@
 import React from 'react'
+import { toast, ToastContainer } from 'react-toastify';
 export const ApprovePostContent = () => {
 
-    const onSubmit = async (e) => {
+    const onSubmit = async (number: number) => {
         // e.preventDefault();
         try {
             const response = await fetch('/api/approvePost', {
@@ -9,16 +10,17 @@ export const ApprovePostContent = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ postId: 1 })
+                body: JSON.stringify({ number: 1 })
             });
             const data = await response.json();
             console.log(data);
         } catch (error) {
-            console.error('An error occurred while approving the post');
+            toast.error('An error occurred while approving the post');
         }
     }
 
   return (
+    <>
         <div className="flex bg-white text-black m-10 rounded-xl p-10 justify-between">
             <button onClick={() => onSubmit(1)} className="btn btn-square w-4/12 bg-green-500 text-white">
                 Approve
@@ -27,5 +29,7 @@ export const ApprovePostContent = () => {
                 Delete
             </button>
         </div>
+        <ToastContainer />
+    </>
   )
 }
