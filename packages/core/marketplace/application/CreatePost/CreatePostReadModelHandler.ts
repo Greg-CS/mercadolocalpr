@@ -33,7 +33,8 @@ export default class CreatePostReadModelHandler extends DomainEventHandler {
             evt.categoryId,
             evt.photoUrl,
             false,  // not moderated
-            evt.timestamp
+            evt.timestamp,
+            false, // not approved
         );
 
         // Add the new post read model to the store

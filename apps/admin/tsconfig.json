@@ -3,6 +3,6 @@
   "compilerOptions": {
     "plugins": [{ "name": "next" }]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/deleteadd.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/deleteadd.js", "src/app/auth/login/route.js"],
   "exclude": ["node_modules"]
 }

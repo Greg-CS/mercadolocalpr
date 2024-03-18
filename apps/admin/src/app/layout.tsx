@@ -6,10 +6,7 @@ import { cookies } from "next/headers";
 import type { Database } from "../../database.types";
 import { SidePanel } from "./components/SidePanel/side-panel";
 import { Navbar } from "./components/Navbar/Navbar";
-import { createClient } from "../../utils/server";
 import { LoginForm } from "./components/Form/login-form";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "MercadoLocalPR - Admin",
@@ -28,28 +25,10 @@ export default async function RootLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const signIn = async (formData: FormData) => {
-    "use server";
-
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      toast(error.message);
-    }
-  };
-
   if (!user) {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <LoginForm signIn={signIn} user={user}  />
+        <LoginForm user={user}  />
       </main>
     );
   }
@@ -64,7 +43,6 @@ export default async function RootLayout({
             {children}
           </div>
         </div>
-        <ToastContainer/>
       </body>
     </html>
   );

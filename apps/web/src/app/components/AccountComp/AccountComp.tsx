@@ -326,7 +326,7 @@ export const AccountComp = ({ user }: { user: User | null }) => {
               <option value="other">Other</option>
             </select>
           </div>
-          <div className="flex gap-12 p-10 m-auto mt-4 bg-white rounded-lg justify-evenly">
+          <div className="grid grid-cols-4 gap-12 p-10 m-auto mt-4 bg-white rounded-lg justify-evenly">
             {posts?.length === 0 && <div>No posts yet</div>}
             {posts?.map((post) => (
               <Link href={`/editPost/${post.id}`} key={post.id}>

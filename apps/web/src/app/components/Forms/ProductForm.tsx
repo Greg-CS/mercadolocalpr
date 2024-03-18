@@ -59,7 +59,7 @@ export const ProductForm = ({ user }: { user: any }) => {
   const [location, setLocation] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  let imageUrl: string;
+  const [imageUrl, setImageUrl] = useState("");
   const router = useRouter();
   async function getImages() {
     const { data, error } = await supabase.storage
@@ -72,7 +72,7 @@ export const ProductForm = ({ user }: { user: any }) => {
     console.log(data);
     if (data !== null) {
       setImages(data);
-      imageUrl = CDNURL + user + "/" + images[1]?.name;
+      setImageUrl(CDNURL + user + "/" + images[images.length - 1]?.name);
     } else {
       console.log(error);
     }
@@ -230,12 +230,12 @@ export const ProductForm = ({ user }: { user: any }) => {
           <option value="like new">Como nuevo</option>
           <option value="used">Usado</option>
         </select>
-        <label>Photos</label>
+        {/* <label>Photos</label>
         {!!images?.length && (
           <div className="h-8 text-lg">
             <div className="text-gray-500">Drag to reorder</div>
           </div>
-        )}
+        )} */}
         <div className="flex flex-wrap gap-1 mb-2">
           {/* <ReactSortable
             list={images}
@@ -253,7 +253,7 @@ export const ProductForm = ({ user }: { user: any }) => {
               ))}
           </ReactSortable> */}
 
-          {isUploading && (
+          {/* {isUploading && (
             <div className="flex items-center h-24">
               <Spinner />
             </div>
@@ -274,8 +274,9 @@ export const ProductForm = ({ user }: { user: any }) => {
               />
             </svg>
             <div>Upload</div>
-            {/* <input type="file" onChange={uploadImages} className="hidden" /> */}
-          </label>
+            <input type="file" onChange={uploadImages} className="hidden" />
+          </label> 
+          */}
           <div className="space-y-2">
             <label
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -291,7 +292,7 @@ export const ProductForm = ({ user }: { user: any }) => {
               onChange={(ev) => uploadFiles(ev)}
             />
           </div>
-          <img src={CDNURL + user + "/" + images[1]?.name} alt="" />
+          <img src={imageUrl} alt="" />
         </div>
         <button
           className="btn bg-[#3A4F41] text-white font-bold hover:bg-[#A1B5D8] hover:border-0"

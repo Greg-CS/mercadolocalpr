@@ -1,10 +1,10 @@
 "use client";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 // import { motion } from "framer-motion";
 import type { Database } from "../../../../database.types";
 import { EraseModal } from "../Modals/EraseModal";
+import axios from "axios";
 type ProfilesTable = Database["public"]["Tables"]["profiles"]["Row"];
 
 export function UserProfile (): JSX.Element{
@@ -20,6 +20,17 @@ export function UserProfile (): JSX.Element{
     };
     void getData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       axios.get("/api/GetProfile");
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   void fetchData();
+  // }, []);
 
   return (
     <div className="overflow-x-auto p-10">

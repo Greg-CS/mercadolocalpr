@@ -21,7 +21,17 @@ export const PostContent = ({ id }: { id: number }) => {
     getData();
   }, []);
 
-  console.log(postState);
+  // useEffect(() => {
+  //   try {
+  //     const getData = async () => {
+  //       const { data } = await axios.get("/api/GetPost");
+  //       console.log(data);
+  //     }
+  //     getData();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
 
   return (
     <div className="min-h-screen md:flex grid justify-around">

@@ -1,5 +1,5 @@
 import Post from "./Entities/Post";
-import DomainEvent from "@/core/shared/domain/DomainEvent";
+import DomainEvent from "../../shared/domain/DomainEvent";
 
 /**
  * Interface representing a repository for managing Post entities.

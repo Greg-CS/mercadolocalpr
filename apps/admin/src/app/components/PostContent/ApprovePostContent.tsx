@@ -2,7 +2,7 @@ import React from 'react'
 import { toast, ToastContainer } from 'react-toastify';
 export const ApprovePostContent = () => {
 
-    const onSubmit = async (number: number) => {
+    const ApprovePost = async (number: number) => {
         // e.preventDefault();
         try {
             const response = await fetch('/api/approvePost', {
@@ -22,7 +22,7 @@ export const ApprovePostContent = () => {
   return (
     <>
         <div className="flex bg-white text-black m-10 rounded-xl p-10 justify-between">
-            <button onClick={() => onSubmit(1)} className="btn btn-square w-4/12 bg-green-500 text-white">
+            <button onClick={() => ApprovePost(1)} className="btn btn-square w-4/12 bg-green-500 text-white">
                 Approve
             </button>
             <button onClick={() => console.log("lol")} className="btn btn-square w-4/12 bg-red-500 text-white">

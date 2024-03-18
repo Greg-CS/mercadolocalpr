@@ -9,53 +9,13 @@ import { User } from "@supabase/auth-helpers-nextjs";
 // import { toast, ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 interface Props {
-  signIn: (formData: FormData) => void;
   user: User | null;
 }
 
-export function LoginForm ({ signIn, user }: Props): JSX.Element {
+export function LoginForm ({ user }: Props): JSX.Element {
   const router = useRouter();
-  // const supabase = createClientComponentClient<Database>();
   const [password, setPassword] = useState("");
-  // const [isModalActive, setIsModalActive] = useState(false);
-
-  /**
-   * Step 1: Send the user an email to get a password reset token.
-   * This email contains a link which sends the user back to your application.
-   */
-
-  // const forgotPassword = async (formData: FormData) => {
-  //   console.log("forgot password");
-  //   const email = formData.get("email") as string;
-  //   const { error } = await supabase.auth.resetPasswordForEmail(email);
-
-  //   if (error) {
-  //     return redirect("/login?message=Could not authenticate user");
-  //   }
-
-  //   return toast.success("Check email to continue password reset process");
-  // };
-
-  /**
-   * Step 2: Once the user is redirected back to your application,
-   * ask the user to reset their password.
-   */
-
-  // useEffect(() => {
-  //   supabase.auth.onAuthStateChange(async (event, session) => {
-  //     if (event == "PASSWORD_RECOVERY") {
-  //       setIsModalActive(true);
-  //       if (password) {
-  //         const { data, error } = await supabase.auth.updateUser({
-  //           password: password,
-  //         });
-
-  //         if (data) alert("Password updated successfully!");
-  //         if (error) alert("There was an error updating your password.");
-  //       }
-  //     }
-  //   });
-  // }, []);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -66,8 +26,9 @@ export function LoginForm ({ signIn, user }: Props): JSX.Element {
   return (
     <form
       className="grid items-center justify-center gap-4 bg-white p-4 border-2 rounded-md mx-auto"
-      action={signIn}
+      action="/auth/login"
       aria-label="login-form"
+      method="post"
     >
       <h1 className="text-center text-2xl font-extrabold text-black">WELCOME - Admin</h1>
 
@@ -101,13 +62,16 @@ export function LoginForm ({ signIn, user }: Props): JSX.Element {
             </svg>
           </span>
           <input
-            name="email"
-            placeholder="you@example.com"
-            required
-            type="email"
-            id="email"
-            autoComplete="email"
             className=" block w-full px-3 py-2  b rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            name="email"
+            type="email"
+            value={email}
+            placeholder="you@example.com"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            required
+            id="email"
           />
         </div>
 
@@ -140,14 +104,15 @@ export function LoginForm ({ signIn, user }: Props): JSX.Element {
           </span>
           <input
             className="input input-bordered w-full max-w-xs"
-            type="password"
             name="password"
+            type="password"
             value={password}
             placeholder="••••••••"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
             required
+            id="password"
           />
         </div>
       </div>

@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import GetPostHandler from '@repo/mercadolocalpr-core/GetPostHandler';
-export default async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
         // Logic for getting the post
         const postId = req.body.postId;
         console.log(req.body)
         // Create a new instance of GetPostHandler
-        const getPostHandler = new GetPostHandler(postId);
+        const getPostHandler = new GetPostHandler();
 
         try {
             // Perform the necessary actions to get the post
