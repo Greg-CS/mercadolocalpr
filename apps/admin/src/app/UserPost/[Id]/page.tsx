@@ -2,7 +2,7 @@
 import { ApprovePostContent } from "../../components/PostContent/ApprovePostContent";
 import { PostContent } from "../../components/PostContent/PostContent";
 
-export default function Page({ params }: { params: { id: number } }): React.JSX.Element {
+export default function Page({ params }: { params: { id: number } }) {
 
     const postId = params.id;
 
@@ -12,7 +12,7 @@ export default function Page({ params }: { params: { id: number } }): React.JSX.
         <div className="bg-white text-black m-10 rounded-xl">
             <PostContent id={postId} />
         </div>
-        <ApprovePostContent />
+        <ApprovePostContent id={postId}/>
     </>
     );
 }

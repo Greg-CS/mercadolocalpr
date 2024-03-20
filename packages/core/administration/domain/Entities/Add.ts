@@ -65,7 +65,7 @@ class AddState {
      */
     private applyAddCreatedEvent(event: events.AddCreatedEvent) {
         this.id = new values.AddId(event.id);
-        this.addInfo = new values.AddInfo(event.title, event.photoUrl, event.location, event.description);
+        this.addInfo = new values.AddInfo(event.title, event.description, event.photoUrl, event.description);
         this.price = new values.AddPrice(event.price);
         this.sellerId = new values.SellerId(event.sellerId);
         this.isModerated = false;
@@ -233,11 +233,16 @@ export default class Add extends AggregateRoot {
 
         const requiredModeration = (moderatedTitle != currentTitle) || (moderatedDescription != currentDescription);
 
-        this.addEvent(new events.PostModeratedEvent(
+        this.addEvent(new events.AddCreatedEvent(
             this.state.id!.id,
             moderatedTitle,
             moderatedDescription,
-            requiredModeration
+            this.state.price!.price.toString(),
+            this.state.sellerId!.id,
+            this.state.addInfo!.photoUrl,
+            this.state.addInfo!.photoUrl, // change eventually missing timestamp
+            
+            // requiredModeration
         ))
     }
 }

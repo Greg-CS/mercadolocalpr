@@ -1,8 +1,8 @@
 import * as values from "../Values";
 import * as events from "../Events";
 
-import { AggregateRoot } from "@/core/shared/domain/Entity";
-import DomainEvent from "@/core/shared/domain/DomainEvent";
+import { AggregateRoot } from "../../../shared/domain/Entity";
+import DomainEvent from "../../../shared/domain/DomainEvent";
 import ModerationAPI from "../ModerationAPI";
 
 /**
@@ -65,10 +65,10 @@ class PostState {
      */
     private applyPostCreatedEvent(event: events.PostCreatedEvent) {
         this.id = new values.PostId(event.id);
-        this.postInfo = new values.PostInfo(event.title, event.photoUrl, event.location, event.description);
+        this.postInfo = new values.PostInfo(event.title, event.photoUrl, event.locationId, event.description);
         this.price = new values.PostPrice(event.price);
         this.sellerId = new values.SellerId(event.sellerId);
-        this.category = new values.PostCategoryId(event.category);
+        this.category = new values.PostCategoryId(event.categoryId);
         this.isModerated = false;
         this.isDeleted = false;
     }

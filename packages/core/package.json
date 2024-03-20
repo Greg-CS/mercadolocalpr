@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "exports": {
-    "./DeleteAddReadModelHandler": "./administration/application/DeleteAdd/DeleteAddReadModelHandler.ts",
-    "./DeletePostHandler": "./marketplace/application/DeletePost/DeletePostHandler.ts",
-    "./AddReadModelAdmins": "./administration/domain/AddReadModelAdmins.ts",
     "./AddDeletedEvent": "./administration/domain/Events.ts",
     "./AddModerateHandler": "./administration/application/UpdateAdd/AddModerateHandler.ts",
+    "./AddReadModelAdmins": "./administration/domain/AddReadModelAdmins.ts",
     "./ApprovePostHandler": "./administration/application/ApprovePost/ApprovePostHandler.ts",
+    "./ApprovePostCommand": "./administration/application/ApprovePost/ApprovePostCommand.ts",
+    "./bootstrap": "./bootstrap/index.ts",
+    "./CreateAddCommand": "./administration/application/CreateAdd/CreateAddCommand.ts",
+    "./ReportPostCommand": "./moderation/application/ReportPost/ReportPostCommand.ts",
+    "./DeletePostCommand": "./marketplace/application/DeletePost/DeletePostCommand.ts",
     "./GetPostHandler": "./marketplace/application/GetPost/GetPostHandler.ts",
     "./UpdatePostHandler": "./marketplace/application/UpdatePost/UpdatePostHandler.ts"
   },

@@ -1,19 +1,21 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import CreateAddHandler from '@repo/mercadolocalpr-core/CreateAddHandler';
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-    // Logic for creating the add
-    const add = req.body.add;
-    console.log(req.body)
-    // Create a new instance of CreateAddHandler
-    const createAddHandler = new CreateAddHandler(add);
+import CreateAddCommand from '@repo/mercadolocalpr-core/CreateAddCommand';
+import messageBus from '@repo/mercadolocalpr-core/bootstrap';
 
+export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+    const createAddCommand = new CreateAddCommand(req.body.title, req.body.description, req.body.price, req.body.category, req.body.sellerId, req.body.image, req.body);
+    let status = 200;
+    let data = {};
     try {
-        // Perform the necessary actions to create the add
-        createAddHandler.handle
-        // Return a success response
-        res.status(200).json({ message: 'Add created successfully' });
+        let result = await messageBus.execute(createAddCommand);
+        if (result.isFailure()) {
+            data = { error: result.errorMessage };
+            status = 400;
+        }
     } catch (error) {
-        // Return an error response if something goes wrong
-        res.status(500).json({ message: 'An error occurred while creating the add' });
+        status = 500;
+        data = { error: 'Server Error 500' };
+        console.log(error);
     }
+    return Response.json(data, { status });
 }

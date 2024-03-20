@@ -51,9 +51,9 @@ export default class PostModel {
      * @type {string} - The timestamp when the post was created.
      */
     public createdAt: string;
-    
+
     /**
-     * @type {boolean} - Flag indictating if the post was approved.
+     * @type {boolean} - Flag indicating if the post was approved.
      */
     public isApproved: boolean;
 
@@ -69,8 +69,8 @@ export default class PostModel {
      * @param {string} photoUrl - The URL of the photo associated with the post.
      * @param {boolean} isModerated - Flag indictating if the post was moderated.
      * @param {string} createdAt - The timestamp when the post was created.
-     * @param {boolean} isApproved - Flag indictating if the post was approved.
-     */
+     * @param {boolean} isApproved - Flag indicating if the post was approved.    
+    */
     constructor(
         id: string,
         title: string,
