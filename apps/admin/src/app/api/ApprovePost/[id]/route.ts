@@ -7,8 +7,6 @@ import messageBus from '@repo/mercadolocalpr-core/bootstrap';
 import ApprovePostCommand from '@repo/mercadolocalpr-core/ApprovePostCommand';
 
 export default async function PUT(req: NextApiRequest, res: NextApiResponse) {
-        const supabase = createRouteHandlerClient({ cookies });
-    
         // const { data, error } = await supabase.from('posts').update({ isApproved: true }).eq('id', req.body.postId); // Update the post to be approved
         // Logic for approving the post
         const postId = req.body.postId;

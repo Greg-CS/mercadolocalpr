@@ -21,5 +21,6 @@ export default class ApprovePostCommand extends Command {
         public readonly postId: string,
     ) {
         super();
+        this.postId = postId;
     }
 }

@@ -10,6 +10,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@babel/core": "^7.24.3",
     "@repo/typescript-config": "*",
     "daisyui": "^4.7.2",
     "eslint": "^8.56.0",

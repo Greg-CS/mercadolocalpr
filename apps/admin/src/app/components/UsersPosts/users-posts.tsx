@@ -1,44 +1,34 @@
 "use client";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Database } from "../../../../database.types";
 import { Spinner } from "../Spinner/spinner";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type PostTable = Database["public"]["Tables"]["posts"]["Row"];
 // type CategoryTable = Database["public"]["Tables"]["categories"]["Row"];
 
 export function UserPosts ({ catID }: { catID: number }) {
 
-  const supabase = createClientComponentClient<Database>();
   const [posts, setPosts] = useState<PostTable[] | null>(null);
-  // const [category, setCategory] = useState<CategoryTable[] | null>(null);
-  
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await supabase.from("posts").select("*");
-      setPosts(data);
-      console.log(data)
-    };
-    getData();
-  }, []);
 
   useEffect(() => {
     try {
       const getData = async () => {
-        const { data } = await axios.get("/api/GetPost");
-        console.log(data);
+        const response = await axios.get("/api/GetPost");
+        setPosts(response.data);
       }
       getData();
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   }, []);
 
   if (!posts) return (
-  <div className="flex items-center justify-center">
+  <div className="mx-auto pt-24 flex items-center justify-center">
     <Spinner />
   </div>
   );
@@ -103,6 +93,7 @@ export function UserPosts ({ catID }: { catID: number }) {
           </tr>
         </tfoot>
       </table>
+      <ToastContainer />
     </div>
   );
 };
