@@ -1,6 +1,6 @@
 import {describe, expect, test} from '@jest/globals';
 import Post from './Post';
-import { SellerId } from './Values';
+import { PostPrice, SellerId } from './Values';
 
 /**
  * Creates a Post object with optional overrides.
@@ -12,6 +12,7 @@ import { SellerId } from './Values';
 function getPost(overrides?: any): Post {
     overrides = overrides ? overrides : {};
 
+    const price = overrides.price || '500';
     const postId = overrides.postId || '3c47c658-cf5b-4fbb-b41f-afbd764c6532';
     const locationId = overrides.locationId || 'ee554619-d511-4327-a38e-409e61c1cf35';
     const sellerId = overrides.sellerId || '7aadb97d-1b00-4d6d-a756-f49d05393f8a';
@@ -21,7 +22,7 @@ function getPost(overrides?: any): Post {
         postId,
         'The title of the post',
         'The description of the post',
-        '500',
+        price,
         locationId,
         sellerId,
         categoryId,
@@ -107,5 +108,66 @@ describe('Post Entity', () => {
     expect(function(){
         post.comment(sellerId, commentId, 'The comment of the post.')
     }).toThrowError();
+  });
+
+
+  test('Cannot use the same price during a price reduce action.', () => {
+    const price = '500';
+    const sellerId = '7aadb97d-1b00-4d6d-a756-f49d05393f8a';
+
+    let post = getPost({ sellerId, price })
+    
+    expect(function(){
+        post.reducePrice(new PostPrice(price), new SellerId(sellerId));
+    }).toThrowError();
+  });
+
+  test('Cannot reduce the price of a closed post.', () => {
+    const price = '500';
+    const sellerId = '7aadb97d-1b00-4d6d-a756-f49d05393f8a';
+
+    let post = getPost({ sellerId, price })
+
+    post.close(new SellerId(sellerId))
+    
+    expect(function(){
+        post.reducePrice(new PostPrice(price), new SellerId(sellerId));
+    }).toThrowError();
+  });
+
+  test('Cannot reduce the price of a deleted post.', () => {
+    const price = '500';
+    const sellerId = '7aadb97d-1b00-4d6d-a756-f49d05393f8a';
+
+    let post = getPost({ sellerId, price })
+
+    post.delete(new SellerId(sellerId));
+    
+    expect(function(){
+        post.reducePrice(new PostPrice(price), new SellerId(sellerId));
+    }).toThrowError();
+  });
+
+  test('Non-seller cannot reduce the price of a post.', () => {
+    const price = '500';
+    const sellerId = '7aadb97d-1b00-4d6d-a756-f49d05393f8a';
+    const nonSellerId = '7dafcfbf-165a-4b82-9c80-4c24de98cc38';
+
+    let post = getPost({ sellerId, price })
+    
+    expect(function(){
+        post.reducePrice(new PostPrice(price), new SellerId(nonSellerId));
+    }).toThrowError();
+  });
+
+  test('Price is reduced by seller.', () => {
+    const price = '500';
+    const sellerId = '7aadb97d-1b00-4d6d-a756-f49d05393f8a';
+
+    let post = getPost({ sellerId, price })
+    
+    post.reducePrice(new PostPrice('250'), new SellerId(sellerId));
+
+    expect(post.getPrice()).toEqual(250)
   });
 });

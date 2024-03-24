@@ -272,6 +272,15 @@ export default class Post extends AggregateRoot {
     }
 
     /**
+     * Indicates the price of the post.
+     * 
+     * @returns {number} - The price of the post.
+     */
+    public getPrice(): number {
+        return this.state.price?.price || -1;
+    }
+
+    /**
      * Determines if the post is owned by a specified user.
      * 
      * @param {values.SellerId} sellerId - The identifier of the seller to compare against.
