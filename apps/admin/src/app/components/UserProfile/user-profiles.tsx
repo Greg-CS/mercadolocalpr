@@ -11,15 +11,30 @@ export function UserProfile (): JSX.Element{
 
   const supabase = createClientComponentClient<Database>();
   const [profile, setProfile] = useState<ProfilesTable[] | null>(null);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
-    const getData = async () => {
-      const { data } = await supabase.from("profiles").select("*");
-      setProfile(data);
-      return data;
-    };
-    void getData();
+    const fetchData = async () => {
+      try {
+        const response = axios.get("/api/GetProfiles");
+        console.log(response);
+        setProfile((await response).data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    void fetchData();
   }, []);
+
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const { data } = await supabase.from("profiles").select("*");
+  //     setProfile(data);
+  //     return data;
+  //   };
+  //   void getData();
+  // }, []);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -31,6 +46,14 @@ export function UserProfile (): JSX.Element{
   //   }
   //   void fetchData();
   // }, []);
+
+  if(profile === null || fetchError != null){
+    return (
+      <div className="mx-auto pt-36 flex items-center justify-center">
+        <h1 className="font-bold text-3xl">Error fetching Profiles!</h1>
+      </div>
+    )
+  }
 
   return (
     <div className="overflow-x-auto p-10">

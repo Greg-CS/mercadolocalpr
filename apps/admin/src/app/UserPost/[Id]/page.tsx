@@ -8,7 +8,6 @@ export default function Page({ params }: { params: { id: number } }) {
 
     return (
     <>
-        <h1>User Post {postId}</h1>
         <div className="bg-white text-black m-10 rounded-xl">
             <PostContent id={postId} />
         </div>

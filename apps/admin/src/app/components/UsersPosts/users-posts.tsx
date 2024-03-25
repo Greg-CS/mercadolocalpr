@@ -5,27 +5,35 @@ import Link from "next/link";
 import type { Database } from "../../../../database.types";
 import { Spinner } from "../Spinner/spinner";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 type PostTable = Database["public"]["Tables"]["posts"]["Row"];
 // type CategoryTable = Database["public"]["Tables"]["categories"]["Row"];
 
 export function UserPosts ({ catID }: { catID: number }) {
-
   const [posts, setPosts] = useState<PostTable[] | null>(null);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
-    try {
-      const getData = async () => {
-        const response = await axios.get("/api/GetPost");
-        setPosts(response.data);
+    const fetchData = async () => {
+      try {
+        const response = axios.get("/api/GetPost");
+        console.log(response);
+        setPosts((await response).data);
+      } catch (error) {
+        setFetchError("Error fetching posts");
+        console.log(error);
       }
-      getData();
-    } catch (error) {
-      toast.error(error);
     }
+    void fetchData();
   }, []);
+
+  if(fetchError != null){
+    return (
+      <div className="mx-auto pt-36 flex items-center justify-center">
+        <h1 className="font-bold text-3xl">Error fetching posts</h1>
+      </div>
+    )
+  }
 
   if (!posts) return (
   <div className="mx-auto pt-24 flex items-center justify-center">
@@ -93,7 +101,6 @@ export function UserPosts ({ catID }: { catID: number }) {
           </tr>
         </tfoot>
       </table>
-      <ToastContainer />
     </div>
   );
 };

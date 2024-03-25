@@ -5,7 +5,7 @@ import { Database } from "../../../../database.types";
 export async function GET(request: Request) {
     const cookieStore = cookies()
     const supabase = createRouteHandlerClient<Database>({ cookies: () => cookieStore });
-    const { data, error } = await supabase.from("posts").select("*");
+    const { data, error } = await supabase.from("profiles").select("*");
     if(error){
         console.log("Error fetching posts");
     }
