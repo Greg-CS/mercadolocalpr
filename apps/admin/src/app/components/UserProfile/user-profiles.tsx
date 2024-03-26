@@ -1,15 +1,14 @@
 "use client";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
-// import { motion } from "framer-motion";
+import { Spinner } from "../Spinner/spinner";
 import type { Database } from "../../../../database.types";
 import { EraseModal } from "../Modals/EraseModal";
 import axios from "axios";
+
 type ProfilesTable = Database["public"]["Tables"]["profiles"]["Row"];
 
 export function UserProfile (): JSX.Element{
 
-  const supabase = createClientComponentClient<Database>();
   const [profile, setProfile] = useState<ProfilesTable[] | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
 
@@ -20,34 +19,20 @@ export function UserProfile (): JSX.Element{
         console.log(response);
         setProfile((await response).data);
       } catch (error) {
+        setFetchError("Error fetching Profiles");
         console.log(error);
       }
     }
     void fetchData();
   }, []);
 
+  if (!profile) return (
+  <div className="mx-auto pt-24 flex items-center justify-center">
+    <Spinner />
+  </div>
+  );
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const { data } = await supabase.from("profiles").select("*");
-  //     setProfile(data);
-  //     return data;
-  //   };
-  //   void getData();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       axios.get("/api/GetProfile");
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   void fetchData();
-  // }, []);
-
-  if(profile === null || fetchError != null){
+  if(fetchError != null){
     return (
       <div className="mx-auto pt-36 flex items-center justify-center">
         <h1 className="font-bold text-3xl">Error fetching Profiles!</h1>
@@ -61,6 +46,7 @@ export function UserProfile (): JSX.Element{
         <thead>
           <tr>
             <th></th> 
+            <th>ID</th>
             <th>Username</th> 
             <th>Description</th> 
             <th>updated_at</th> 
@@ -74,6 +60,7 @@ export function UserProfile (): JSX.Element{
           {profile?.map((user: ProfilesTable) => (
             <tr key={user.id}>
             <th></th> 
+            <td>{user.id}</td>
             <td>{user.username}</td> 
             <td>{user.description}</td> 
             <td>{user.updated_at}</td> 
@@ -81,7 +68,7 @@ export function UserProfile (): JSX.Element{
             <td>2024-02-14T02:40:59.907+00:00</td> 
             <td>2</td>
             <td className="flex items-center justify-start">
-              <EraseModal/>
+              <EraseModal ID={user.id}/>
             </td>
           </tr>
           ))}
@@ -89,6 +76,7 @@ export function UserProfile (): JSX.Element{
         <tfoot>
           <tr>
             <th></th> 
+            <th>ID</th>
             <th>Username</th> 
             <th>Description</th> 
             <th>updated_at</th> 

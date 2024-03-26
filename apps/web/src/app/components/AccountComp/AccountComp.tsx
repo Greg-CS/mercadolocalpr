@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import { ImageResp } from "../ImageResp/ImageResp";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 type PostTable = Database["public"]["Tables"]["posts"]["Row"];
 const CDNURL =
@@ -93,47 +94,14 @@ export const AccountComp = ({ user }: { user: User | null }) => {
     setActiveTab3(true);
   };
 
-  const getProfile = useCallback(async () => {
-    try {
-      setLoading(true);
+  let id = "6cfca6ca-9faf-415e-a37b-5f9e78fcdb84";
 
-      const { data, error, status } = await supabase
-        .from("profiles")
-        .select(
-          `full_name, username, description, profile_image_url, banner_image_url`,
-        )
-        .eq("id", user?.id ?? "")
-        .single();
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        setUsername(data.username);
-        setDescription(data.description);
-        setprofileImageUrl(data.profile_image_url);
-        setbannerImageUrl(data.banner_image_url);
-      }
-    } catch (error) {
-      toast.error("Error loading user data!");
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`/api/marketplace/Profile/GetProfile/${id}`);
+      setPosts(response.data);
     }
-  }, [user, supabase]);
-
-  useEffect(() => {
-    getProfile();
-  }, [user, getProfile]);
-
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await supabase
-        .from("posts")
-        .select("*")
-        .eq("user_id", user?.id ?? "");
-      setPosts(data);
-    };
-    getData();
+    fetchData();
   }, []);
 
   useEffect(() => {

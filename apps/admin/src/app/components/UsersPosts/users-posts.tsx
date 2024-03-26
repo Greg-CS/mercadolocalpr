@@ -41,8 +41,16 @@ export function UserPosts ({ catID }: { catID: number }) {
   </div>
   );
 
+  if (!posts || posts.length === 0) {
+    return (
+      <div className="mx-auto pt-36 flex items-center justify-center">
+        <h1 className="font-bold text-3xl">No posts</h1>
+      </div>
+    );
+  }
+
   return (
-    <div className="overflow-x-auto p-10">
+    <div className="overflow-x-auto p-10 w-[100%]">
       <table className="table table-xs border-2 rounded-xl">
         <thead>
           <tr>

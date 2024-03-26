@@ -197,6 +197,33 @@ export class AddModeratedEvent extends DomainEvent {
     }
 }
 
+export class ProfileDeletedEvent extends DomainEvent {
+    /**
+     * @param {string} - The unique identifier of the Profile to be deleted.
+     * @param {string} - The timestamp of the event.
+     */
+    public readonly profileId: string;
+
+    /**
+     * Creates an instance of the ProfileDeletedEvent.
+     * @param {string} profileId - the unique identifier of the created Profile. 
+     * @param {string} timestamp - The timestamp of the event. 
+     */
+
+    constructor(profileId: string, timestamp?: string) {
+        super(timestamp);
+        this.profileId = profileId;
+    }
+
+    public toJson(): string {
+        return JSON.stringify({ id: this.profileId });
+    }
+
+    public static fromJson(obj: any): ProfileDeletedEvent {
+        return new ProfileDeletedEvent(obj.id, obj.timestamp);
+    } 
+}
+
 export class ApprovePostEvent extends DomainEvent {
         /** The unique identifier of the post. */
     public readonly postId: string;

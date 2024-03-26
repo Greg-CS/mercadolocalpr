@@ -17,27 +17,64 @@ export const PostContent = ({ id }: { id: number }) => {
   }, []);
 
   return (
-    <div className="min-h-screen md:flex grid justify-around">
+    <div className="grid xl:flex justify-between p-10">
       <div className="p-10">
         <Image
           src={(postState && postState[0]?.photo_url) || "/img/placeholder.jpg"}
           alt={(postState && postState[0]?.title) || "No Title"}
           width={500}
-          height={300}
-          className="rounded-md"
+          height={500}
+          className="rounded-md border-2"
         />
       </div>
-      <div className="p-10 grid">
-        <h2 className="text-3xl">
-          Titulo: {(postState && postState[0]?.title) || "No Title"}
-        </h2>
-        <span className="text-2xl">
-          Precio: {postState && postState[0]?.price}
-        </span>
-        <span>Localizacion: {postState && postState[0]?.location}</span>
-        <h4>fecha: {postState && postState[0]?.created_at}</h4>
-        <p>Descripcion: {postState && postState[0]?.description}</p>
-        <span>Categoria: {postState && postState[0]?.category}</span>
+      <div className="p-10">
+        <div className="flex items-center justify-between gap-2 xl:gap-24">
+          <h2 className="text-6xl font-bold">
+            Titulo:
+          </h2>
+          <span className="text-6xl font-bold">
+            {(postState && postState[0]?.title) || "No Title"}
+          </span>
+        </div>
+        <div className="grid mt-12">
+          <div className="flex items-center justify-between gap-2 xl:gap-24">
+            <span className="text-2xl font-semibold">
+              Precio: 
+            </span>
+            <span className="text-2xl font-semibold">
+              {postState && postState[0]?.price}
+            </span>
+          </div>
+          <div className="flex items-center justify-between gap-2 xl:gap-24">          
+            <span className="text-2xl font-semibold">
+              Localizacion:
+            </span>
+            <span className="text-2xl font-semibold">
+              {postState && postState[0]?.location}
+            </span>
+          </div>
+        </div>
+        <div className="flex items-center justify-between gap-2 xl:gap-24">
+          <h4 className="text-2xl font-semibold">Fecha:</h4>
+          <span className="text-2xl font-semibold">
+            {postState && postState[0]?.created_at}
+          </span>
+        </div>
+        <div className="flex items-center justify-between gap-2 xl:gap-24">        
+          <span className="text-2xl font-semibold">Descripcion:
+          </span>
+          <span className="text-2xl font-semibold">
+            {postState && postState[0]?.description}
+          </span>
+        </div>
+        <div className="flex items-center justify-between gap-2 xl:gap-24">        
+          <span className="text-2xl font-semibold">
+            Categoria:
+          </span>
+          <span className="text-2xl font-semibold">
+            {postState && postState[0]?.category}
+          </span>
+        </div>
       </div>
     </div>
   );

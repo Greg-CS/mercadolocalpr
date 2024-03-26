@@ -27,10 +27,10 @@ export const ApprovePostContent = ({ id }: { id: number }) => {
   return (
     <>
         <div className="flex bg-white text-black m-10 rounded-xl p-10 justify-between">
-            <button onClick={() => ApprovePost(id)} className="btn btn-square w-4/12 bg-green-500 text-white">
+            <button onClick={() => ApprovePost(id)} className="btn btn-square w-5/12 bg-green-500 text-white">
                 Approve
             </button>
-            <button onClick={() => DeletePost(id)} className="btn btn-square w-4/12 bg-red-500 text-white">
+            <button onClick={() => DeletePost(id)} className="btn btn-square w-5/12 bg-red-500 text-white">
                 Delete
             </button>
         </div>

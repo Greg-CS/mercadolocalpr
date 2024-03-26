@@ -19,7 +19,24 @@ export class SellerId extends values.Id {
     }
 }
 
-// Adds 
+export class ProfileId extends values.Id {
+    /**
+     * Creates an instance of the ProfileId class.
+     * @param {string} id - The unique identifier for the User.
+     */
+    constructor(public readonly id: string) {
+        super();
+    }
+
+    /**
+     * Checks if this ProfileId is equal to another ProfileId.
+     * @param {ProfileId} other - The other ProfileId to compare.
+     * @returns {boolean} - True if the ProfileId values are equal, otherwise false.
+     */
+    public equals(other: ProfileId): boolean {
+        return this.id === other.id;
+    }
+}
 
 export  class AddId extends values.Id {
     constructor(public readonly id: string) {

@@ -1,7 +1,7 @@
 import CommandHandler from "../../../shared/application/CommandHandler";
 import DeleteAddCommand from "./DeleteAddCommand";
-import Post from "../../domain/Entities/Post";
-import PostNotFoundError from "../../domain/Exceptions/PostNotFoundError";
+import Add from "../../domain/Entities/Add";
+import PostNotFoundError from "../../../marketplace/domain/Exceptions/PostNotFoundError";
 import UnitOfWork from "../../../shared/application/UnitOfWork";
 import { SellerId } from "../../domain/Values";
 
@@ -19,25 +19,25 @@ export class DeleteAddHandler extends CommandHandler {
     }
 
     /**
-     * Handles the DeletePostCommand by loading the post events, creating a post entity,
+     * Handles the DeleteAddCommand by loading the post events, creating a post entity,
      * marking it as deleted, and saving the changes.
-     * @param {DeletePostCommand} cmd - The DeletePostCommand to be handled.
+     * @param {DeleteAddCommand} cmd - The DeleteAddCommand to be handled.
      * @throws {PostNotFoundError} - Throws an error if the post with the specified ID is not found.
      */
     public async handle(cmd: DeleteAddCommand): Promise<void> {
         // Load events for the specified post ID
-        let events = await this.unitOfWork.posts.loadEvents(cmd.addId);
+        let events = await this.unitOfWork.repository.loadEvents(cmd.addId);
 
         // If no events are found, the post does not exist
         if (events.length === 0) throw new PostNotFoundError();
 
         // Create a new post entity using the loaded events
-        let post = new Post(events);
+        let add = new Add(events);
 
-        // Mark the post as deleted using the user ID initiating the deletion
-        post.delete(new SellerId(cmd.sellerId));
+        // Mark the add as deleted using the user ID initiating the deletion
+        add.delete(new SellerId(cmd.sellerId));
 
-        // Save the modified post entity using the unit of work
-        this.unitOfWork.save(post);
+        // Save the modified add entity using the unit of work
+        this.unitOfWork.save(add);
     }
 }

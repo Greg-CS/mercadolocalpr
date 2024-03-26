@@ -9,6 +9,7 @@ import { LocationId } from "../Location/Values";
 /**
  * Represents the state of a Post aggregate within the domain, encapsulating all properties and state transitions through domain events.
  */
+
 class PostState {
     /**
      * Indicates whether the post has been deleted.
@@ -134,6 +135,7 @@ class PostState {
 /**
  * The Post aggregate root, encapsulating the state and behaviors of a Post entity.
  */
+
 export default class Post extends AggregateRoot {
     /**
      * The encapsulated state of the Post.
