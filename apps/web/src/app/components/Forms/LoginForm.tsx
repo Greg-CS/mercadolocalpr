@@ -11,15 +11,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { redirect } from "next/navigation";
 
 interface Props {
-  signIn: (formData: FormData) => void;
-  signUp: (formData: FormData) => void;
   user: User | null;
 }
 
-export const LoginForm = ({ signIn, signUp, user }: Props) => {
+export const LoginForm = ({ user }: Props) => {
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [isModalActive, setIsModalActive] = useState(false);
 
   /**
@@ -68,11 +67,12 @@ export const LoginForm = ({ signIn, signUp, user }: Props) => {
 
   return (
     <form
-      className="animate-in flex-1 flex flex-col w-full justify-center gap-4 text-foreground bg-white p-4 border-2 rounded-md shadow-sm"
-      action={signIn}
+      className="grid items-center justify-center gap-4 bg-white p-4 border-2 rounded-md mx-auto"
+      action="/auth/login"
       aria-label="login-form"
+      method="post"
     >
-      <h1 className="text-center text-2xl font-extrabold text-">WELCOME</h1>
+      <h1 className="text-center text-2xl font-extrabold text-black">WELCOME - Admin</h1>
 
       {/* Input fields: email & password  */}
       <div className="flex flex-col gap-2">
@@ -104,13 +104,16 @@ export const LoginForm = ({ signIn, signUp, user }: Props) => {
             </svg>
           </span>
           <input
-            name="email"
-            placeholder="you@example.com"
-            required
-            type="email"
-            id="email"
-            autoComplete="email"
             className=" block w-full px-3 py-2  b rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            name="email"
+            type="email"
+            value={email}
+            placeholder="you@example.com"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            required
+            id="email"
           />
         </div>
 
@@ -142,17 +145,22 @@ export const LoginForm = ({ signIn, signUp, user }: Props) => {
             </svg>
           </span>
           <input
-            className="px-4 py-2 bg-inherit "
-            type="password"
+            className="input input-bordered w-full max-w-xs"
             name="password"
+            type="password"
+            value={password}
             placeholder="••••••••"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             required
+            id="password"
           />
         </div>
       </div>
 
       {/* Remember ME and Forgot Password */}
-      <div className="flex items-center justify-between gap-1">
+      {/* <div className="flex items-center justify-between gap-1">
         <div className="flex items-center">
           <input
             id="remember-me"
@@ -175,22 +183,16 @@ export const LoginForm = ({ signIn, signUp, user }: Props) => {
             Forgot your password?
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Sign in & sign up button */}
       <div className="flex flex-col gap-2">
         <button className="bg-green-700 hover:bg-green-900 text-white rounded-md px-4 py-2  text-foreground">
           Login
         </button>
-        <button
-          formAction={signUp}
-          className="border border-foreground/20 bg-white hover:bg-slate-100  rounded-md px-4 py-2 text-foreground "
-        >
-          Register
-        </button>
       </div>
-      {isModalActive && <ResetPassModal setPassword={setPassword} />}
-      <ToastContainer />
+      {/* {isModalActive && <ResetPassModal setPassword={setPassword} />} */}
+      {/* <ToastContainer /> */}
     </form>
   );
 };

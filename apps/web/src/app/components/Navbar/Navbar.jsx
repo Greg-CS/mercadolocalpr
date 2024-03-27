@@ -13,6 +13,7 @@ import { MobileMenu } from "./MobileMenu";
         setIsLoggedIn(true);
       }
     }, [user])
+    let id = user ? user.id : null;
 
     return (
       <nav className="bg-[#3A4F41]">
@@ -75,10 +76,10 @@ import { MobileMenu } from "./MobileMenu";
                   className="dropdown-content z-[1] menu p-2 shadow rounded-box bg-white w-[10vw]"
                 >
                   <li className="py-2 mr-auto w-[9vw]">
-                    <Link href={"/account"}>Account</Link>
+                    <Link href={`/account/${id}`}>Account</Link>
                   </li>
                   <li className="py-2 mr-auto w-[9vw]">
-                    <Link href={"/newPost"}>Crear publicacion</Link>
+                    <Link href={`/newPost/${id}`}>Crear publicacion</Link>
                   </li>
                   <li className="py-2 mr-auto w-[9vw]">
                     <Link href={"/account#settings"}>Settings</Link>
@@ -115,7 +116,7 @@ import { MobileMenu } from "./MobileMenu";
         </div>
         <div className="bg-[#3A4F41] p-3 flex justify-center">
           <Link href="/subscriptions" className="text-white py-1 font-bold">
-            Conosca mas sobre el programa de vendedores 
+            Conosca mas sobre el programa de vendedores
           </Link>
         </div>
       </nav>

@@ -48,17 +48,14 @@ type FileObject = {
   updated_at: string;
 };
 
-export const AccountComp = ({ user }: { user: User | null }) => {
+export const AccountComp = ({ user, Uid }: { user: User | null, Uid: String | null }) => {
   const supabase = createClientComponentClient<Database>();
   const [posts, setPosts] = useState<PostTable[] | null>(null);
   const [activeTab, setActiveTab] = useState(false);
   const [activeTab2, setActiveTab2] = useState(false);
   const [activeTab3, setActiveTab3] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState<string | null>(null);
-  const [profileImageUrl, setprofileImageUrl] = useState<string | null>(null);
-  const [bannerImageUrl, setbannerImageUrl] = useState<string | null>(null);
-  const [description, setDescription] = useState<string | null>(null);
+  const [profile, setProfile] = useState<Database["public"]["Tables"]["profiles"]["Row"] | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [images, setImages] = useState<FileObject[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -94,15 +91,21 @@ export const AccountComp = ({ user }: { user: User | null }) => {
     setActiveTab3(true);
   };
 
-  let id = "6cfca6ca-9faf-415e-a37b-5f9e78fcdb84";
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`/api/marketplace/Profile/GetProfile/${Uid}`);
+      setProfile(response.data);
+    }
+    fetchData();
+  }, [Uid]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`/api/marketplace/Profile/GetProfile/${id}`);
+      const response = await axios.get(`/api/marketplace/Profile/GetPostByUser/${Uid}`);
       setPosts(response.data);
     }
     fetchData();
-  }, []);
+  }, [Uid]);
 
   useEffect(() => {
     if (!user) {
@@ -180,7 +183,7 @@ export const AccountComp = ({ user }: { user: User | null }) => {
         <div className="bg-black rounded-lg h-[12rem]">
           <div className="relative flex justify-center items-center w-24 h-24 bg-black border-2 border-black rounded-full top-[9rem] left-32">
             <img
-              src={profileImageUrl || ""}
+              src={profile?.profile_image_url || ""}
               alt="profile picture"
               className="w-24 h-24 rounded-full"
             />
@@ -190,8 +193,8 @@ export const AccountComp = ({ user }: { user: User | null }) => {
         {/* User Info */}
 
         <div className="grid m-10 font-semibold text-black">
-          <div className="text-4xl font-bold">{username}</div>
-          <div className="pt-2 text-lg">{description}</div>
+          <div className="text-4xl font-bold">{profile?.username}</div>
+          <div className="pt-2 text-lg">{profile?.description}</div>
         </div>
 
         {/* Tab titles */}
@@ -349,14 +352,14 @@ export const AccountComp = ({ user }: { user: User | null }) => {
             <input
               type="text"
               className="bg-white border-2 border-black input input-bordered"
-              value={username ?? ""}
-              onChange={(ev) => setUsername(ev.target.value)}
+              value={profile?.username ?? ""}
+              onChange={(ev) => setProfile({ ...profile, username: ev.target.value })}
             />
             <label htmlFor="Description">Descripcion</label>
             <textarea
               className="bg-white border-2 border-black input input-bordered min-h-[100px]"
-              value={description ?? ""}
-              onChange={(ev) => setDescription(ev.target.value)}
+              value={profile?.description ?? ""}
+              onChange={(ev) => setProfile({ ...profile, description: ev.target.value })}
             />
             <div className="pt-5">
               <div className="grid gap-4 p-4 border-2 border-gray-300 rounded-md">
@@ -417,20 +420,15 @@ export const AccountComp = ({ user }: { user: User | null }) => {
               </div>
             </div>
             <div className="flex justify-between pt-10">
-              <button
+              {/* <button
                 className="btn w-[100%]"
                 onClick={() =>
-                  updateProfile({
-                    username,
-                    profile_image_url: profileImageUrl,
-                    banner_image_url: bannerImageUrl,
-                    description,
-                  })
+                  updateProfile({ profile?.username, profile?.description, profile?.profile_image_url, profile?.banner_image_url })
                 }
                 disabled={loading}
               >
                 {loading ? "Loading ..." : "Update"}
-              </button>
+              </button> */}
             </div>
           </form>
         </div>

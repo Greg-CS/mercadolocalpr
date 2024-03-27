@@ -5,20 +5,21 @@ import type { Database } from "../../../../database.types";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 type PostTable = Database["public"]["Tables"]["posts"]["Row"];
 
 export const NuevasPublicaciones = () => {
   const supabase = createClientComponentClient<Database>();
   const [posts, setPosts] = useState<PostTable[] | null>(null);
-  const [loadMore, setLoadMore] = useState(4); // Add loadMore state
+  const [loadMore, setLoadMore] = useState(4);  
 
   useEffect(() => {
-    const getData = async () => {
-      const { data } = await supabase.from("posts").select("*").range(0, 3);
-      setPosts(data);
-    };
-    getData();
+    const fetchData = async () => {
+      const response = await axios.get('/api/marketplace/posts/GetPost');
+      setPosts(response.data);
+    }
+    fetchData();
   }, []);
 
   const handleLoadMore = async () => {

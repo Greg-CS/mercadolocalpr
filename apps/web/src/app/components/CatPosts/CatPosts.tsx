@@ -6,40 +6,27 @@ import Link from "next/link";
 import type { Database } from "../../../../database.types";
 import { Spinner } from "../Spinner/Spinner";
 import { motion } from "framer-motion";
+import axios from "axios";
+
 type PostTable = Database["public"]["Tables"]["posts"]["Row"];
 
 export const CatPosts = ({ catID }: any) => {
   const supabase = createClientComponentClient<Database>();
-  const [posts, setPosts] = useState<PostTable[] | null>(null);
-  const [category, setCategory] = useState<PostTable[] | null>(null);
+  const [categoryPost, setCategoryPost] = useState<PostTable[] | null>(null);
 
   useEffect(() => {
-    const getData = async () => {
-      const { data } = await supabase.from("posts").select("*");
-      setPosts(data);
-    };
-    getData();
+    const fetchData = async () => {
+      const response = await axios.get('/api/marketplace/posts/GetPostsByCategory');
+      setCategoryPost(response.data);
+    }
+    fetchData();
   }, []);
 
-  useEffect(() => {
-    const getCategory = async () => {
-      // Perform a query to get posts based on the category name
-      const { data } = await supabase
-        .from("posts")
-        .select(
-          "id, title, price, location, created_at, description, category, photo_url, user_id, categories (id, category_name)",
-        );
-
-      setCategory(data);
-    };
-    getCategory();
-  }, []);
-
-  if (!posts) return <Spinner />;
+  if (!categoryPost) return <Spinner />;
 
   return (
     <>
-      {category
+      {categoryPost
         ?.filter((post) => post.category === catID)
         .map((post) => (
           <Link href={`/post/${post.id}`} key={post.id}>

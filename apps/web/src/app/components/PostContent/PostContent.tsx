@@ -3,18 +3,17 @@ import { useEffect, useState } from "react";
 import type { Database } from "../../../../database.types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
+import axios from "axios";
 type PostTable = Database["public"]["Tables"]["posts"]["Row"];
 
 export const PostContent = ({ id }: { id: number }) => {
   const supabase = createClientComponentClient<Database>();
   const [postState, setPostState] = useState<PostTable[] | null>(null);
+  
   useEffect(() => {
     const getData = async () => {
-      const { data: posts } = await supabase
-        .from("posts")
-        .select("*")
-        .eq("id", id);
-      setPostState(posts);
+      const response = await axios.get(`/api/marketplace/posts/GetPost/${id}`);
+      setPostState(response.data);
     };
 
     getData();

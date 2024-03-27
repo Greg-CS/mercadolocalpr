@@ -1,18 +1,17 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { Database } from "../../../database.types";
-import { AccountComp } from "../components/AccountComp/AccountComp";
+import { Database } from "../../../../database.types";
+import { AccountComp } from "../../components/AccountComp/AccountComp";
 
-export default async function Account() {
+export default async function Account({ params }: { params: { slug: string } }) {
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  console.log(user);
   return (
     <>
-      <AccountComp user={user} />
+      <AccountComp user={user} Uid={params.slug} />
     </>
   );
 }
